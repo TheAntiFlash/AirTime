@@ -2,11 +2,12 @@
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
-using Controller.Authentication;
+using DataAccess.Repositories;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
-using Model;
+using Model.DTOs;
+using Model.Models;
 
 namespace Controller.Controllers;
 
@@ -14,52 +15,47 @@ namespace Controller.Controllers;
 [ApiController]
 public class AuthenticationController : ControllerBase
 {  
-    private readonly UserManager<ApplicationUser> _userManager;
     private readonly IConfiguration _configuration;
-    
-    public AuthenticationController(UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager, IConfiguration configuration)
+    private readonly IAdminRepository _adminRepo;
+    public AuthenticationController(IConfiguration configuration, IAdminRepository adminRepo)
     {
-        this._userManager = userManager;
         _configuration = configuration;
+        _adminRepo = adminRepo;
+    }
+
+
+    [HttpPost]
+    [Route("register")]
+    public async Task<IActionResult> Register(AuthDto req)
+    {
+        Admin admin = new Admin();
+        string passwordHash
+            = BCrypt.Net.BCrypt.HashPassword(req.Password);
+        admin.AdminId = req.UserId;
+        admin.AdminUserName = req.Username;
+        admin.PasswordHash = passwordHash;
+
+        int statusCode = await _adminRepo.RegisterAdmin(admin);
+        return Ok(statusCode);
     }
 
     [HttpPost]
     [Route("login")]
-    public async Task<IActionResult> Login(/*LoginModel model*/)
+    public async Task<IActionResult> Login(AuthDto req)
     {
-        //var user = await _userManager.FindByNameAsync(model.EmailId);
-        //if (user != null && await _userManager.CheckPasswordAsync(user, model.Password))
-        //{
-           // var userRoles = await _userManager.GetRolesAsync(user);
+        Admin? admin = _adminRepo.GetAdmin(req.Username);
 
-            /*var authClaims = new List<Claim>
-            {
-                new Claim(ClaimTypes.Email, user.Email),
-                new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
-            };
+        if (admin == null)
+        {
+            return BadRequest("User Not Found");
+        }
 
-            foreach (var userRole in userRoles)
-            {
-                authClaims.Add(new Claim(ClaimTypes.Role, userRole));
-            }
-*/
-            var authSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["JWT:Secret"]));
+        if (!BCrypt.Net.BCrypt.Verify(req.Password, admin.PasswordHash))
+        {
+            return BadRequest("Password Incorrect");
+        }
 
-            var token = new JwtSecurityToken(
-                issuer: _configuration["JWT:ValidIssuer"],
-                audience: _configuration["JWT:ValidAudience"],
-                expires: DateTime.Now.AddHours(3),
-                //claims: authClaims,
-                signingCredentials: new SigningCredentials(authSigningKey, SecurityAlgorithms.HmacSha256)
-            );
-            return Unauthorized();
-
-            return Ok(new
-            {
-                token = new JwtSecurityTokenHandler().WriteToken(token),
-                expiration = token.ValidTo
-            });
-        //}
+        return Ok(admin);
     }
     
 }
