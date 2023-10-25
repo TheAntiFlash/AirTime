@@ -94,23 +94,20 @@
                 <input type="password" id="password" name="password" placeholder="Enter your password" required>
             </div>
             <div class="btn-container">
-                <button type="submit">Login</button>
-                <button class="signup-button" type="submit" onclick="register">Sign Up</button>
+                <button  type="submit">Login</button>
+                <button class="signup-button" type="submit" onclick="window.location.href='/register'">Sign Up</button>
             </div>
         </form>
         <div class="forgot-password">
-            <a href="register">Forgot Password?</a>
+            <a href="#">Forgot Password?</a>
         </div>
     </div>
 </body>
 </html>
 
 
-@code 
+@code
 {
     public string? email { get; set; }
     public string? password { get; set; }
-
-    
-
-                }
+}

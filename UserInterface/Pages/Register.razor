@@ -1,6 +1,6 @@
 ﻿@page "/register"
 
-<Index>Register</Index>
+<PageTitle>Register</PageTitle>
 
 
 <!DOCTYPE html>
@@ -8,7 +8,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sign Up - AirTime.pk</title>
+    <title>Signup to AirTime.pk</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -53,6 +53,7 @@
 
         .btn-container {
             margin-top: 20px;
+            text-align: center; /* Center the button */
         }
 
             .btn-container button {
@@ -62,12 +63,15 @@
                 border: none;
                 border-radius: 5px;
                 cursor: pointer;
-                margin: 0 5px;
+                display: block; /* Make it a block-level element */
+                width: 100%; /* Full width within its container */
             }
 
             .btn-container a {
                 text-decoration: none;
                 color: #007BFF;
+                display: block; /* Display the link as a block-level element */
+                margin-top: 10px;
             }
 
                 .btn-container a:hover {
@@ -97,13 +101,14 @@
             </div>
             <div class="btn-container">
                 <button type="submit">Sign Up</button>
-                <a href="#">Have an Account? Login here</a>
             </div>
         </form>
+        <div class="btn-container">
+            <a href="#">Have an Account? Sign in here</a>
+        </div>
     </div>
 </body>
 </html>
-
 
 @code {
 
