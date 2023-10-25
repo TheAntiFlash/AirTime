@@ -1,4 +1,8 @@
 ﻿@page "/"
+@using Model.DTOs
+@inject NavigationManager nm
+@using System.Text.Json
+@using System.Text
 
 <PageTitle>Log in</PageTitle>
 <!DOCTYPE html>
@@ -7,107 +11,75 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AirTime.pk Login</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-        }
-
-        .login-container {
-            background: #fff;
-            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-            padding: 30px;
-            width: 350px;
-            text-align: center;
-        }
-
-            .login-container h2 {
-                margin: 0 0 20px;
-            }
-
-        .form-group {
-            display: flex;
-            flex-direction: column;
-            margin: 15px 0;
-            text-align: left;
-        }
-
-            .form-group label {
-                margin-bottom: 5px;
-            }
-
-            .form-group input {
-                padding: 10px;
-                border: 1px solid #ccc;
-                border-radius: 5px;
-            }
-
-        .btn-container {
-            margin-top: 20px;
-            display: flex;
-            flex-direction: column;
-        }
-
-            .btn-container button {
-                padding: 10px 0;
-                background: #007BFF;
-                color: #fff;
-                border: none;
-                border-radius: 5px;
-                cursor: pointer;
-                margin: 5px 0;
-            }
-
-            .btn-container .signup-button {
-                background: #4CAF50;
-            }
-
-        .forgot-password {
-            margin-top: 10px;
-        }
-
-            .forgot-password a {
-                text-decoration: none;
-                color: #007BFF;
-            }
-
-                .forgot-password a:hover {
-                    text-decoration: underline;
-                }
-    </style>
 </head>
 <body>
-    <div class="login-container">
-        <h2>Login to AirTime.pk</h2>
-        <form>
-            <div class="form-group">
-                <label for="email">Email:</label>
-                <input type="email" id="email" name="email" placeholder="Enter your email" required>
-            </div>
-            <div class="form-group">
-                <label for="password">Password:</label>
-                <input type="password" id="password" name="password" placeholder="Enter your password" required>
-            </div>
-            <div class="btn-container">
-                <button  type="submit">Login</button>
-                <button class="signup-button" type="submit" onclick="window.location.href='/register'">Sign Up</button>
-            </div>
-        </form>
-        <div class="forgot-password">
-            <a href="#">Forgot Password?</a>
+<div class="login-container">
+    <h2>Login to AirTime.pk</h2>
+    <EditForm Model="@authDto" OnValidSubmit="Login">
+        <DataAnnotationsValidator />
+        <div class="form-group">
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username" placeholder="username" @bind="authDto.Username" required>
+            <ValidationMessage For="@(() => authDto.Username)"/>
         </div>
+        <div class="form-group">
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" placeholder="Password" @bind="authDto.Password" required>
+            <ValidationMessage For="@(() => authDto.Password)"/>
+        </div>
+        <div class="btn-container">
+            <button type="submit">Login</button>
+            <button class="signup-button" type="submit" >Sign Up</button>
+        </div>
+          @if (!string.IsNullOrWhiteSpace(error))
+            {
+                <div class="alert alert-danger">
+                    @error
+                </div>
+            }
+    </EditForm>
+    <div class="forgot-password">
+        <a href="#">Forgot Password?</a>
     </div>
+</div>
 </body>
 </html>
 
-
 @code
 {
-    public string? email { get; set; }
-    public string? password { get; set; }
+    private AuthDto authDto = new();
+    private string apiUrl = "http://127.0.0.1:5019/api/Authentication/login";
+    private EditContext editContext;
+    private string error = string.Empty;
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+        editContext = new EditContext(authDto);
+    }
+
+
+    private async Task Login()
+    {
+        string jsonContent = JsonSerializer.Serialize(authDto);
+        StringContent content = new(jsonContent, Encoding.UTF8, "application/json"); 
+        using (var httpClient = new HttpClient())
+        {
+            var response = await httpClient.PostAsync(apiUrl, content);
+
+            if (response.IsSuccessStatusCode)
+            {
+                string responseContent = await response.Content.ReadAsStringAsync();
+                Console.WriteLine("POST request was successful. Response: " + responseContent);
+                nm.NavigateTo("/home");
+            }
+            else
+            {
+                Console.WriteLine("POST request failed. Status Code: " + response.StatusCode);
+                string responseContent = await response.Content.ReadAsStringAsync();
+                error = responseContent;
+
+            }
+        }
+    }
 }
