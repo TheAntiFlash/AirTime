@@ -1,32 +1,23 @@
-/*using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Controller.Controllers;
 
+[Route("api/[controller]")]
 [ApiController]
-[Route("[controller]")]
-public class WeatherForecastController : ControllerBase
+[Authorize]
+public class ExampleController : ControllerBase
 {
-    private static readonly string[] Summaries = {
-        "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-    };
-
-    private readonly ILogger<WeatherForecastController> _logger;
-
-    public WeatherForecastController(ILogger<WeatherForecastController> logger)
+    [HttpGet("posts")]
+    [Authorize]
+    public IActionResult GetPosts()
     {
-        _logger = logger;
-    }
-
-    [HttpGet(Name = "GetWeatherForecast")]
-    public IEnumerable<WeatherForecast> Get()
-    {
-        return Enumerable.Range(1, 5).Select(index => new WeatherForecast
-            {
-                Date = DateOnly.FromDateTime(DateTime.Now.AddDays(index)),
-                TemperatureC = Random.Shared.Next(-20, 55),
-                Summary = Summaries[Random.Shared.Next(Summaries.Length)]
-            })
-            .ToArray();
+        var post = new 
+        {
+            postId = 1,
+            postTitle = "TestPost",
+            postAuthor = "admin"
+        };
+        return Ok(post);
     }
 }
-*/

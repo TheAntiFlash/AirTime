@@ -31,7 +31,7 @@ public class AuthenticationController : ControllerBase
         Admin admin = new Admin();
         string passwordHash
             = BCrypt.Net.BCrypt.HashPassword(req.Password);
-        admin.AdminId = req.UserId;
+        
         admin.AdminUserName = req.Username;
         admin.PasswordHash = passwordHash;
 
@@ -55,7 +55,31 @@ public class AuthenticationController : ControllerBase
             return BadRequest("Password Incorrect");
         }
 
-        return Ok(admin);
+        var token = CreateToken(admin);
+        return Ok(token);
     }
-    
+
+
+    private string CreateToken(Admin admin)
+    {
+        List<Claim> claims = new List<Claim>
+        {
+            new (ClaimTypes.Name, admin.AdminUserName)
+        };
+
+        var key = 
+            new SymmetricSecurityKey(
+                Encoding.UTF8.GetBytes(
+                    _configuration.GetSection("JWT:Key").Value!
+                    )
+                );
+        var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha512Signature);
+        var token = new JwtSecurityToken(
+                claims: claims,
+                expires: DateTime.Now.AddHours(8),
+                signingCredentials: creds
+            );
+        var jwt = new JwtSecurityTokenHandler().WriteToken(token);
+        return jwt;
+    }
 }
