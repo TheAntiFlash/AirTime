@@ -1,12 +1,14 @@
-﻿@page "/"
+﻿@page "/register"
 
-<PageTitle>Log in</PageTitle>
+<PageTitle>Register</PageTitle>
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AirTime.pk Login</title>
+    <title>Signup to AirTime.pk</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -18,7 +20,7 @@
             margin: 0;
         }
 
-        .login-container {
+        .signup-container {
             background: #fff;
             box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
             padding: 30px;
@@ -26,22 +28,24 @@
             text-align: center;
         }
 
-            .login-container h2 {
+            .signup-container h2 {
                 margin: 0 0 20px;
+                font-family: "Brush Script MT", cursive;
+                font-size: 28px;
             }
 
         .form-group {
-            display: flex;
-            flex-direction: column;
             margin: 15px 0;
-            text-align: left;
         }
 
             .form-group label {
+                display: block;
+                text-align: left;
                 margin-bottom: 5px;
             }
 
             .form-group input {
+                width: 100%;
                 padding: 10px;
                 border: 1px solid #ccc;
                 border-radius: 5px;
@@ -49,42 +53,40 @@
 
         .btn-container {
             margin-top: 20px;
-            display: flex;
-            flex-direction: column;
+            text-align: center; /* Center the button */
         }
 
             .btn-container button {
-                padding: 10px 0;
+                padding: 10px 20px;
                 background: #007BFF;
                 color: #fff;
                 border: none;
                 border-radius: 5px;
                 cursor: pointer;
-                margin: 5px 0;
+                display: block; /* Make it a block-level element */
+                width: 100%; /* Full width within its container */
             }
 
-            .btn-container .signup-button {
-                background: #4CAF50;
-            }
-
-        .forgot-password {
-            margin-top: 10px;
-        }
-
-            .forgot-password a {
+            .btn-container a {
                 text-decoration: none;
                 color: #007BFF;
+                display: block; /* Display the link as a block-level element */
+                margin-top: 10px;
             }
 
-                .forgot-password a:hover {
+                .btn-container a:hover {
                     text-decoration: underline;
                 }
     </style>
 </head>
 <body>
-    <div class="login-container">
-        <h2>Login to AirTime.pk</h2>
+    <div class="signup-container">
+        <h2>Signup to AirTime.pk</h2>
         <form>
+            <div class="form-group">
+                <label for="fullname">Full Name:</label>
+                <input type="text" id="fullname" name="fullname" placeholder="Enter your full name" required>
+            </div>
             <div class="form-group">
                 <label for="email">Email:</label>
                 <input type="email" id="email" name="email" placeholder="Enter your email" required>
@@ -93,21 +95,21 @@
                 <label for="password">Password:</label>
                 <input type="password" id="password" name="password" placeholder="Enter your password" required>
             </div>
+            <div class="form-group">
+                <label for="confirmPassword">Confirm Password:</label>
+                <input type="password" id="confirmPassword" name="confirmPassword" placeholder="Re-enter your password" required>
+            </div>
             <div class="btn-container">
-                <button  type="submit">Login</button>
-                <button class="signup-button" type="submit" onclick="window.location.href='/register'">Sign Up</button>
+                <button onclick="window.location.href='/otp'" type="submit">Sign Up</button>
             </div>
         </form>
-        <div class="forgot-password">
-            <a href="#">Forgot Password?</a>
+        <div class="btn-container">
+            <a href="#">Have an Account? Sign in here</a>
         </div>
     </div>
 </body>
 </html>
 
+@code {
 
-@code
-{
-    public string? email { get; set; }
-    public string? password { get; set; }
 }

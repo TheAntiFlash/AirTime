@@ -1,0 +1,91 @@
+﻿@page "/otp"
+<PageTitle>OTP Verification</PageTitle>
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OTP Verification</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .otp-container {
+            background: #ffffff;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            width: 300px;
+            text-align: center;
+            border-radius: 8px;
+        }
+
+            .otp-container h2 {
+                font-size: 24px;
+                margin: 0 0 20px;
+                color: #333;
+            }
+
+        .otp-input {
+            display: flex;
+            justify-content: space-between;
+            margin: 20px 0;
+        }
+
+            .otp-input input {
+                width: 40px;
+                height: 40px;
+                border: 1px solid #ccc;
+                border-radius: 4px;
+                font-size: 18px;
+                text-align: center;
+            }
+
+                .otp-input input:focus {
+                    outline: none;
+                    border: 2px solid #007BFF;
+                }
+
+        .submit-button {
+            margin: 20px 0;
+        }
+
+            .submit-button button {
+                padding: 12px 20px;
+                background: #007BFF;
+                color: #fff;
+                border: none;
+                border-radius: 4px;
+                cursor: pointer;
+                font-size: 16px;
+            }
+    </style>
+</head>
+<body>
+    <div class="otp-container">
+        <h2>OTP Verification</h2>
+        <div class="otp-input">
+            <input type="text" maxlength="1">
+            <input type="text" maxlength="1">
+            <input type="text" maxlength="1">
+            <input type="text" maxlength="1">
+        </div>
+        <div class="submit-button">
+            <button>Submit</button>
+        </div>
+    </div>
+</body>
+</html>
+
+
+@code {
+
+}
