@@ -2,75 +2,82 @@
 
 <PageTitle>Register</PageTitle>
 
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Signup to AirTime.pk</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Vollkorn:700,500">
     <style>
         body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
+            font-family: 'Vollkorn', serif;
+            background-color: #9CDBFF;
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
             margin: 0;
+            padding: 20px;
         }
 
-        .signup-container {
-            background: #fff;
-            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        .form-container {
+            background: #ffffff;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
             padding: 30px;
-            width: 350px;
             text-align: center;
+            border-radius: 8px;
         }
 
-            .signup-container h2 {
-                margin: 0 0 20px;
-                font-family: "Brush Script MT", cursive;
+            .form-container h2 {
                 font-size: 28px;
+                font-weight: 700;
+                margin: 0 0 20px;
+                color: #000;
             }
 
-        .form-group {
-            margin: 15px 0;
-        }
+            .form-container .form-group {
+                margin: 15px 0;
+            }
 
-            .form-group label {
+            .form-container label {
                 display: block;
                 text-align: left;
                 margin-bottom: 5px;
             }
 
-            .form-group input {
+            .form-container input {
                 width: 100%;
                 padding: 10px;
                 border: 1px solid #ccc;
                 border-radius: 5px;
+                font-size: 16px;
             }
 
+                .form-container input::placeholder {
+                    color: #777; /* Placeholder text color */
+                }
+
         .btn-container {
-            margin-top: 20px;
-            text-align: center; /* Center the button */
+            margin: 20px 0;
+            text-align: center;
         }
 
             .btn-container button {
-                padding: 10px 20px;
-                background: #007BFF;
+                padding: 12px 20px;
+                background: #4CAF50;
                 color: #fff;
                 border: none;
                 border-radius: 5px;
                 cursor: pointer;
-                display: block; /* Make it a block-level element */
-                width: 100%; /* Full width within its container */
+                font-size: 16px;
+                width: 100%;
             }
 
             .btn-container a {
                 text-decoration: none;
                 color: #007BFF;
-                display: block; /* Display the link as a block-level element */
+                display: block;
                 margin-top: 10px;
             }
 
@@ -80,14 +87,14 @@
     </style>
 </head>
 <body>
-    <div class="signup-container">
-        <h2>Signup to AirTime.pk</h2>
+    <div class="form-container">
+        <h2>Let's Join</h2>
         <form>
             <div class="form-group">
                 <label for="fullname">Full Name:</label>
                 <input type="text" id="fullname" name="fullname" placeholder="Enter your full name" required>
             </div>
-            <div class="form-group">
+            <div>
                 <label for="email">Email:</label>
                 <input type="email" id="email" name="email" placeholder="Enter your email" required>
             </div>
@@ -100,7 +107,7 @@
                 <input type="password" id="confirmPassword" name="confirmPassword" placeholder="Re-enter your password" required>
             </div>
             <div class="btn-container">
-                <button onclick="window.location.href='/otp'" type="submit">Sign Up</button>
+                <button onclick="window.location.href='/otp'">Sign Up</button>
             </div>
         </form>
         <div class="btn-container">
@@ -110,6 +117,8 @@
 </body>
 </html>
 
-@code {
 
+
+@code {
+    
 }
