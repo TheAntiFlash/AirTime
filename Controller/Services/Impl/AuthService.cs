@@ -52,7 +52,7 @@ public class AuthService : IAuthService
 
     public async Task<Response<string>> LoginUser(AuthDto auth)
     {
-        User? user =  await _userRepo.GetUser(auth.Username);
+        User? user =  await _userRepo.GetUser(auth.UsernameOrEmail);
         
         if (user == null)
         {

@@ -18,9 +18,9 @@
     <EditForm Model="@authDto" OnValidSubmit="Login">
         <DataAnnotationsValidator />
         <div class="form-group">
-            <label for="username">Username:</label>
-            <input type="text" id="username" name="username" placeholder="username" @bind="authDto.Username" required>
-            <ValidationMessage For="@(() => authDto.Username)"/>
+            <label for="username">Username Or Email:</label>
+            <input type="text" id="username" name="username or email" placeholder="Username or Email" @bind="authDto.UsernameOrEmail" required>
+            <ValidationMessage For="@(() => authDto.UsernameOrEmail)"/>
         </div>
         <div class="form-group">
             <label for="password">Password:</label>
@@ -48,7 +48,7 @@
 @code
 {
     private AuthDto authDto = new();
-    private string apiUrl = "http://127.0.0.1:5019/api/Authentication/login";
+    private string apiUrl = "http://127.0.0.1:5019/api/login";
     private EditContext editContext;
     private string error = string.Empty;
 
@@ -62,24 +62,22 @@
     private async Task Login()
     {
         string jsonContent = JsonSerializer.Serialize(authDto);
-        StringContent content = new(jsonContent, Encoding.UTF8, "application/json"); 
-        using (var httpClient = new HttpClient())
+        StringContent content = new(jsonContent, Encoding.UTF8, "application/json");
+        using var httpClient = new HttpClient();
+        var response = await httpClient.PostAsync(apiUrl, content);
+
+        if (response.IsSuccessStatusCode)
         {
-            var response = await httpClient.PostAsync(apiUrl, content);
+            string responseContent = await response.Content.ReadAsStringAsync();
+            Console.WriteLine("POST request was successful. Response: " + responseContent);
+            nm.NavigateTo("/home");
+        }
+        else
+        {
+            Console.WriteLine("POST request failed. Status Code: " + response.StatusCode);
+            string responseContent = await response.Content.ReadAsStringAsync();
+            error = responseContent;
 
-            if (response.IsSuccessStatusCode)
-            {
-                string responseContent = await response.Content.ReadAsStringAsync();
-                Console.WriteLine("POST request was successful. Response: " + responseContent);
-                nm.NavigateTo("/home");
-            }
-            else
-            {
-                Console.WriteLine("POST request failed. Status Code: " + response.StatusCode);
-                string responseContent = await response.Content.ReadAsStringAsync();
-                error = responseContent;
-
-            }
         }
     }
 }
