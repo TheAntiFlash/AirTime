@@ -1,4 +1,6 @@
 using System.Text;
+using Controller.Services;
+using Controller.Services.Impl;
 using DataAccess.Repositories;
 using DataAccess.RepositoriesImpl;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -12,7 +14,8 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-builder.Services.AddScoped<IAdminRepository, AdminRepository>();
+builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddAuthentication(x =>
     {
         x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
