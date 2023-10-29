@@ -50,23 +50,34 @@ public class AuthService : IAuthService
         return new Response<bool>.Success(true);
     }
 
-    public async Task<Response<string>> LoginUser(AuthDto auth)
+    public async Task<Response<Object>> LoginUser(AuthDto auth)
     {
         User? user =  await _userRepo.GetUser(auth.UsernameOrEmail);
         
         if (user == null)
         {
-            return new Response<string>.Failure(new Exception("User Not Found"));
+            return new Response<Object>.Failure(new Exception("User Not Found"));
         }
 
         if (!BCrypt.Net.BCrypt.Verify(auth.Password, user.PasswordHash))
         {
-            return new Response<string>.Failure(new Exception("Password Incorrect"));
+            return new Response<Object>.Failure(new Exception("Password Incorrect"));
         }
 
         await _userRepo.UpdateLastLogin(user.Id);
-
-        return new Response<string>.Success(CreateToken(user));
+        var token = CreateToken(user);
+        UserSession userSession = new()
+        {
+            Username = user.Username,
+            Email = user.Email,
+            FirstName = user.FirstName,
+            LastName = user.LastName,
+            Role = user.Role
+        };
+        
+        
+        
+        return new Response<Object>.Success(userSession);
     }
     
     private string CreateToken(User user)

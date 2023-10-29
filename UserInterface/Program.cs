@@ -1,6 +1,12 @@
+using System.Text;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Components.Web;
+using Microsoft.IdentityModel.Tokens;
 using UserInterface.Data;
+using UserInterface.Data.Authentication;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -8,6 +14,19 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
 builder.Services.AddSingleton<WeatherForecastService>();
+
+
+builder.Services.AddAuthentication();
+builder.Services.AddAuthorization(options =>
+{
+    options.AddPolicy("RequireAuthenticatedUser", policy => policy.RequireAuthenticatedUser());
+});
+builder.Services.AddScoped<HttpClient>(sp => new HttpClient());
+
+builder.Services.AddScoped<AirtimeAuthenticationProvider>();
+builder.Services.AddScoped<AuthenticationStateProvider, AirtimeAuthenticationProvider>();
+builder.Services.AddScoped<ILoginService, AirtimeAuthenticationProvider>();
+
 
 var app = builder.Build();
 
@@ -24,6 +43,9 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
+
+app.UseAuthentication();
+app.UseAuthorization();
 
 app.MapBlazorHub();
 app.MapFallbackToPage("/_Host");

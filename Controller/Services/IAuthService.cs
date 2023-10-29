@@ -8,5 +8,5 @@ public interface IAuthService
 {
     Task<Response<bool>> RegisterUser(UserRegDto userCred);
 
-    Task<Response<string>> LoginUser(AuthDto auth);
+    Task<Response<Object>> LoginUser(AuthDto auth);
 }

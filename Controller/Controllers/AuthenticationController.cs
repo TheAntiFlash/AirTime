@@ -2,6 +2,7 @@ using Controller.Services;
 using Microsoft.AspNetCore.Mvc;
 using Model.DTOs;
 using Model.DTOs.Response;
+using Model.Models;
 
 namespace Controller.Controllers;
 
@@ -37,15 +38,15 @@ public class AuthenticationController : ControllerBase
     [Route("login")]
     public async Task<IActionResult> Login(AuthDto req)
     {
-        Response<string> res = await _authService.LoginUser(req);
+        Response<Object> res = await _authService.LoginUser(req);
 
-        if (res is Response<string>.Failure failure)
+        if (res is Response<Object>.Failure failure)
         {
             return BadRequest(failure.E!.Message);
         }
 
-        string token = (res as Response<string>.Success)!.Data;
-        return Ok(token);
+        UserSession response = (res as Response<Object>.Success)!.Data as UserSession;
+        return Ok(response);
     }
 }
     
