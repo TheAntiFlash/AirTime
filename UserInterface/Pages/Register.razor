@@ -1,4 +1,8 @@
 ﻿@page "/register"
+@using Model.DTOs
+@inject NavigationManager nm
+@using System.Text.Json
+@using System.Text
 
 <PageTitle>Register</PageTitle>
 
@@ -8,7 +12,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Signup to AirTime.pk</title>
-
+    
 
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Vollkorn:700,500">
     <style>
@@ -92,6 +96,7 @@
 <body>
     <div class="form-container">
         <h2>Let's Join</h2>
+        <EditForm Model="@regDto">
         <form>
             <div class="form-group">
                 <label for="firstname">First Name:</label>
@@ -120,7 +125,9 @@
             <div class="btn-container">
                 <button onclick="window.location.href='/otp'">Sign Up</button>
             </div>
-        </form>
+            </form>
+            </EditForm> 
+        
         <div class="btn-container">
             <a href="#">Have an Account? Sign in here</a>
         </div>
@@ -131,5 +138,24 @@
 
 
 @code {
-    
+    private UserRegDto regDto = new ();
+    private string apiUrl = "https://localhost:5001/api/register";
+    private EditContext? editContext;
+
+    //for errors
+    private string error = string.Empty;
+
+    //onInit
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+        editContext = new EditContext(regDto);
+    }
+
+    private async Task RegisterUser()
+    {
+        string jsonContent = JsonSerializer.Serialize(regDto);
+        StringContent content = new()
+    }
+
 }

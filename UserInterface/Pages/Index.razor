@@ -28,8 +28,8 @@
             <ValidationMessage For="@(() => authDto.Password)"/>
         </div>
         <div class="btn-container">
-            <button type="submit">Login</button>
-            <button class="signup-button" type="submit" >Sign Up</button>
+            <button type="submit" >Login</button>
+            <button class="signup-button" type="submit" onclick="window.location.href='/register'" >Sign Up</button>
         </div>
           @if (!string.IsNullOrWhiteSpace(error))
             {
@@ -48,7 +48,7 @@
 @code
 {
     private AuthDto authDto = new();
-    private string apiUrl = "http://127.0.0.1:5019/api/login";
+    private string apiUrl = "https://localhost:5001/api/login";
     private EditContext? editContext;
     private string error = string.Empty;
 
