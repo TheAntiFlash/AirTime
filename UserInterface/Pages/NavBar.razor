@@ -1,11 +1,20 @@
 ﻿<!-- NavBar.razor -->
+@using Model.DTOs
+@inject NavigationManager nm
+@inject ILoginService logout
+@using UserInterface.Data.Authentication
+@using Model.Models
 
 
 
 @code {
     [Parameter] public bool ShowNavBar { get; set; } = true;
 
-    
+    private async Task LogoutUser()
+    {
+        await logout.Logout();
+        nm.NavigateTo("/");
+    }
 }
 
 @if(ShowNavBar)
@@ -79,7 +88,7 @@
 
     <div class="navbar-container">
         <div class="navbar">
-            <div class="logo"><a href="/">Airtime.pk</a></div>
+            <div class="logo"><a href="/home">Airtime.pk</a></div>
             <ul class="menu">
                 <li><a href="home" >Home</a></li>
                 <li><a href="#about">About</a></li>
@@ -87,7 +96,7 @@
                 <li><a href="#Contact">Contact</a></li>
                 <li><a href="writeblog">Write Post</a></li>
             </ul>
-            <button class="button signup-button">Logout</button>
+            <button class="button signup-button" onclick="LogoutUser">Logout</button>
         </div>
     </div>
 }
