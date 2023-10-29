@@ -12,92 +12,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Signup to AirTime.pk</title>
-    
-
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Vollkorn:700,500">
-    <style>
-        body {
-            font-family: 'Vollkorn', serif;
-            background-color: #9CDBFF;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-            padding: 20px;
-        }
-
-        .form-container {
-            background: #ffffff;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-            padding: 30px;
-            text-align: center;
-            border-radius: 8px;
-        }
-
-            .form-container h2 {
-                font-size: 28px;
-                font-weight: 700;
-                margin: 0 0 20px;
-                color: #000;
-            }
-
-            .form-container .form-group {
-                margin: 15px 0;
-            }
-
-            .form-container label {
-                display: block;
-                text-align: left;
-                margin-bottom: 5px;
-            }
-
-            .form-container input {
-                width: 100%;
-                padding: 10px;
-                border: 1px solid #ccc;
-                border-radius: 5px;
-                font-size: 16px;
-            }
-
-                .form-container input::placeholder {
-                    color: #777; /* Placeholder text color */
-                }
-
-        .btn-container {
-            margin: 20px 0;
-            text-align: center;
-        }
-
-            .btn-container button {
-                padding: 12px 20px;
-                background: #4CAF50;
-                color: #fff;
-                border: none;
-                border-radius: 5px;
-                cursor: pointer;
-                font-size: 16px;
-                width: 100%;
-            }
-
-            .btn-container a {
-                text-decoration: none;
-                color: #007BFF;
-                display: block;
-                margin-top: 10px;
-            }
-
-                .btn-container a:hover {
-                    text-decoration: underline;
-                }
-    </style>
-
 </head>
 <body>
     <div class="form-container">
         <h2>Let's Join</h2>
-        <EditForm Model="@regDto" OnInvalidSubmit="RegisterUser">
-        <form>
+        <EditForm Model="@regDto" OnValidSubmit="RegisterUser">
+        <DataAnnotationsValidator />
             <div class="form-group">
                 <label for="firstname">First Name:</label>
                 <input type="text" id="firstname" name="firstname" placeholder="First Name" @bind="regDto.FirstName" required>
@@ -120,12 +41,11 @@
             </div>
             <div class="form-group">
                 <label for="confirmPassword">Confirm Password:</label>
-                <input type="password" id="confirmPassword" name="confirmPassword" placeholder="Re-enter your password"  required>
+                <input type="password" id="confirmPassword" name="confirmPassword" placeholder="Re-enter your password" @bind="confirmPass"  required>
             </div>
             <div class="btn-container">
-                <button >Sign Up</button>
+                <button type="submit">Sign Up</button>
             </div>
-            </form>
 
             @if(!string.IsNullOrWhiteSpace(error))
             {
@@ -146,9 +66,10 @@
 
 
 @code {
-    private UserRegDto regDto = new UserRegDto ();
-    private string apiUrl = "https://localhost:5001/api/register";
+    private UserRegDto regDto = new();
+    private string apiUrl = "http://localhost:5004/api/register";
     private EditContext? editContext;
+    private string confirmPass = string.Empty;
 
     //for errors
     private string error = string.Empty;
@@ -162,6 +83,13 @@
 
     private async Task RegisterUser()
     {
+        Console.WriteLine($"${regDto.Username}");
+        if (regDto.Password != confirmPass)
+        {
+            error = "Passwords do not match";
+            Console.WriteLine(error);
+            return;
+        }
         string jsonContent = JsonSerializer.Serialize(regDto);
         StringContent content = new(jsonContent, Encoding.UTF8, "application/json");
         using var httpClient = new HttpClient();
@@ -170,7 +98,7 @@
         if(response.IsSuccessStatusCode)
         {
             string responseContent = await response.Content.ReadAsStringAsync();
-            Console.WriteLine("POST Request was Successfull with 200 , RESPONSE: " + responseContent);
+            Console.WriteLine("POST Request was Successful with 200 , RESPONSE: " + responseContent);
             nm.NavigateTo("/otp");
         }
         else
