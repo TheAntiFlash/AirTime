@@ -3,7 +3,152 @@
 <PageTitle>Write Blog</PageTitle>
 <NavBar ShowNavBar="showNavBar"/>
 
-@code{
-    //whether to show Top Header Navigation Bar Or Not
+@inject IJSRuntime JSRuntime
+@if (EditorEnabled)
+{
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
+        <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
+        <style>
+            .editor-container {
+                display: flex;
+                flex-direction: column;
+                margin: 10px;
+                padding: 10px;
+            }
+
+           
+            .input-container {
+                background-color: #f9f9f9;
+                padding: 10px;
+                border-radius: 10px;
+                display: flex;
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .input-text {
+                text-align: center;
+                font-family: "Vollkorn", serif;
+                font-weight: bold;
+                padding-top: 60px;
+            }
+
+
+            #editor {
+                height: 300px; /* Set an appropriate height for your editor */
+                border: 1px solid #ccc;
+                border-radius: 5px;
+                padding: 5px;
+            }
+
+            .buttons-container {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+            }
+
+            .publish-button,
+            .discard-button {
+                flex : 1;
+                margin: 0px 100px;
+                
+                width: 20px;
+            }
+
+
+
+        </style>
+    </head>
+    <body>
+        <div class="input-container">
+                <div class="input-text">
+                    
+                    <h2>Something in your mind?</h2>
+                    <h4>Let's Publish it!</h4>
+                </div>
+
+                <div/>
+        <div class="editor-container">
+            <div id="toolbar">
+                <!-- Your Quill toolbar code goes here -->
+                <div id="toolbar">
+                    <span class="ql-formats">
+                        <select class="ql-font">
+                            <option selected=""></option>
+                            <option value="serif"></option>
+                            <option value="monospace"></option>
+                        </select>
+                        <select class="ql-size">
+                            <option value="small"></option>
+                            <option selected=""></option>
+                            <option value="large"></option>
+                            <option value="huge"></option>
+                        </select>
+                    </span>
+                    <span class="ql-formats">
+                        <button class="ql-bold"></button>
+                        <button class="ql-italic"></button>
+                        <button class="ql-underline"></button>
+                        <button class="ql-strike"></button>
+                    </span>
+                    <span class="ql-formats">
+                        <select class="ql-color"></select>
+                        <select class="ql-background"></select>
+                    </span>
+                    <span class="ql-formats">
+                        <button class="ql-list" value="ordered"></button>
+                        <button class="ql-list" value="bullet"></button>
+                        <button class="ql-indent" value="-1"></button>
+                        <button class="ql-indent" value="+1"></button>
+                        <select class="ql-align">
+                            <option selected=""></option>
+                            <option value="center"></option>
+                            <option value="right"></option>
+                            <option value="justify"></option>
+                        </select>
+                    </span>
+                    <span class="ql-formats">
+                        <button class="ql-link"></button>
+                    </span>
+                </div>
+            </div>
+
+                <div @ref="@divEditorElement" />
+
+                
+                
+            </div>
+        </div>
+        <div class="buttons-container">
+            <button class="btn btn-primary publish-button">Publish</button>
+            <button class="btn btn-secondary discard-button">Discard</button>
+        </div>
+    </body>
+    
+    </html>
+
+
+}
+
+@code {
+    //whther show Nvbar or not
         private bool showNavBar = true;
+
+    //for QUILL JS
+    private string strSavedContent = "";
+    private ElementReference divEditorElement;
+    private string? EditorContent;
+    private string? EditorHTMLContent;
+    private bool EditorEnabled = true;
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            await JSRuntime.InvokeAsync<string>(
+                "QuillFunctions.createQuill", divEditorElement);
+        }
+    }
 }
