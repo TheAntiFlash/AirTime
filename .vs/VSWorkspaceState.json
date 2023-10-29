@@ -2,8 +2,10 @@
   "ExpandedNodes": [
     "",
     "\\Controller",
-    "\\Controller\\Controllers"
+    "\\Controller\\Controllers",
+    "\\UserInterface",
+    "\\UserInterface\\Pages"
   ],
-  "SelectedNode": "\\Controller\\Controllers\\ExampleController.cs",
+  "SelectedNode": "\\UserInterface\\Pages\\Register.razor",
   "PreviewInSolutionExplorer": false
 }
