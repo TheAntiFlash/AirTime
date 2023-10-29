@@ -49,7 +49,7 @@
 {
     private AuthDto authDto = new();
     private string apiUrl = "http://127.0.0.1:5019/api/login";
-    private EditContext editContext;
+    private EditContext? editContext;
     private string error = string.Empty;
 
     protected override void OnInitialized()
