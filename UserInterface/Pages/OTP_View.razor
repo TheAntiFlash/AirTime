@@ -1,17 +1,20 @@
 ﻿@page "/otp"
+@layout MainLayout
 <PageTitle>OTP Verification</PageTitle>
 
 
 <!DOCTYPE html>
 <html lang="en">
+    <NavBar ShowNavBar="showNavBar"/>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>OTP Verification</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Vollkorn:700,500">
     <style>
         body {
-            font-family: Arial, sans-serif;
-            background-color: #f0f0f0;
+            font-family: 'Vollkorn', serif;
+            background-color: #9CDBFF; /* Set the background color to light blue */
             display: flex;
             justify-content: center;
             align-items: center;
@@ -22,37 +25,43 @@
         .otp-container {
             background: #ffffff;
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-            padding: 20px;
-            width: 300px;
+            padding: 40px; /* Increase padding to make the container bigger */
+            width: 500px; /* Make the container wider */
             text-align: center;
             border-radius: 8px;
         }
 
             .otp-container h2 {
-                font-size: 24px;
+                font-size: 36px; /* Bigger font size */
+                font-weight: 700; /* Bold font weight */
                 margin: 0 0 20px;
-                color: #333;
+                color: #000;
             }
 
-        .otp-input {
+        .otp-message {
+            font-size: 18px; /* Medium font size */
+            font-weight: 500; /* Medium font weight */
+            color: #777;
+        }
+
+        .otp-input-container {
             display: flex;
             justify-content: space-between;
             margin: 20px 0;
         }
 
-            .otp-input input {
-                width: 40px;
-                height: 40px;
-                border: 1px solid #ccc;
-                border-radius: 4px;
-                font-size: 18px;
-                text-align: center;
-            }
+        .otp-input-box {
+            width: 25%;
+            padding: 5px 0;
+            border: 1px solid #ccc; /* Add a light gray border */
+            font-size: 18px;
+            text-align: center;
+            color: #000;
+        }
 
-                .otp-input input:focus {
-                    outline: none;
-                    border: 2px solid #007BFF;
-                }
+            .otp-input-box:focus {
+                outline: none; /* Remove focus outline */
+            }
 
         .submit-button {
             margin: 20px 0;
@@ -72,20 +81,37 @@
 <body>
     <div class="otp-container">
         <h2>OTP Verification</h2>
-        <div class="otp-input">
-            <input type="text" maxlength="1">
-            <input type="text" maxlength="1">
-            <input type="text" maxlength="1">
-            <input type="text" maxlength="1">
+        <p class="otp-message">One-time Password is sent to you on your xxxxxx@xxxx.com</p>
+        <div class="otp-input-container">
+            <input type="text" class="otp-input-box" maxlength="1" @bind=otp1 onkeyup="if(this.value.length == 1) document.getElementById('otp2').focus();">
+            <input type="text" class="otp-input-box" id="otp2" maxlength="1" @bind=otp2 onkeyup="if(this.value.length == 1) document.getElementById('otp3').focus();">
+            <input type="text" class="otp-input-box" id="otp3" maxlength="1" @bind=otp3 onkeyup="if(this.value.length == 1) document.getElementById('otp4').focus();">
+            <input type="text" class="otp-input-box" id="otp4" maxlength="1" @bind=otp4 onkeyup="if(this.value.length == 1) document.getElementById('otp4').blur();">
         </div>
         <div class="submit-button">
-            <button>Submit</button>
+            <button onclick="window.location.href='/home'">Submit</button>
         </div>
     </div>
 </body>
 </html>
 
 
+
+
+
 @code {
+    private string? otp1;
+    private string? otp2;
+    private string? otp3;
+    private string? otp4;
+    public string? full_Otp ()
+    { 
+        string? mergeOTP = $"{otp1}{otp2}{otp3}{otp4}";
+        return mergeOTP;
+
+    }
+
+    //whether to show NavBar or not
+    private bool showNavBar = false;
 
 }
