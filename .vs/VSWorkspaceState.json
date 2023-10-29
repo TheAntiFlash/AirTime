@@ -1,9 +1,11 @@
 {
   "ExpandedNodes": [
     "",
+    "\\Controller",
+    "\\Controller\\Controllers",
     "\\UserInterface",
     "\\UserInterface\\Pages"
   ],
-  "SelectedNode": "\\AirTime.sln",
+  "SelectedNode": "\\UserInterface\\Pages\\Register.razor",
   "PreviewInSolutionExplorer": false
 }
