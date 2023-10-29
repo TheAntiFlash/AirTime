@@ -1,4 +1,5 @@
 ﻿@page "/home"
+@attribute [Authorize(policy: "RequireAuthenticatedUser")]
 @layout MainLayout
 
 <PageTitle>Home</PageTitle>
@@ -97,4 +98,11 @@
 
 @code {
     private bool showNavbar = true;
+
+    protected override Task OnAfterRenderAsync(bool firstRender)
+    {
+        
+        return base.OnAfterRenderAsync(firstRender);
+    }
+
 }

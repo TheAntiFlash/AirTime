@@ -1,8 +1,11 @@
 ﻿@page "/"
 @using Model.DTOs
 @inject NavigationManager nm
+@inject ILoginService auth
 @using System.Text.Json
 @using System.Text
+@using Model.Models
+@using UserInterface.Data.Authentication
 
 <PageTitle>Log in</PageTitle>
 <!DOCTYPE html>
@@ -68,9 +71,14 @@
 
         if (response.IsSuccessStatusCode)
         {
-            string responseContent = await response.Content.ReadAsStringAsync();
+            
+            UserSession responseContent = await response.Content.ReadFromJsonAsync<UserSession>();
             Console.WriteLine("POST request was successful. Response: " + responseContent);
-            nm.NavigateTo("/home");
+            
+            
+            await auth.Login(responseContent);
+            
+            nm.NavigateTo("/home", true);
         }
         else
         {
