@@ -10,10 +10,11 @@
 @code {
     [Parameter] public bool ShowNavBar { get; set; } = true;
 
-    private async Task LogoutUser()
+    private  async void LogoutUser()
     {
         await logout.Logout();
         nm.NavigateTo("/");
+        Console.WriteLine("pressed");
     }
 }
 
@@ -91,9 +92,9 @@
             <div class="logo"><a href="/home">Airtime.pk</a></div>
             <ul class="menu">
                 <li><a href="home" >Home</a></li>
-                <li><a href="#about">About</a></li>
-                <li><a href="#Category">Category</a></li>
-                <li><a href="#Contact">Contact</a></li>
+                <li><a >About</a></li>
+                <li><a >Category</a></li>
+                <li><a >Contact</a></li>
                 <li><a href="writeblog">Write Post</a></li>
             </ul>
             <button class="button signup-button" onclick="LogoutUser">Logout</button>
