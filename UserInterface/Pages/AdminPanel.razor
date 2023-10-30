@@ -64,8 +64,9 @@ else
 
     protected override async void OnInitialized()
     {
-        base.OnInitialized();
         user = await http.GetFromJsonAsync<List<User>>(apiUrl);
+        base.OnInitialized();
+        
         
         
     }

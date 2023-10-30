@@ -1,5 +1,7 @@
 ﻿@page "/approve-post"
 @using Model.Models
+@using Microsoft.AspNetCore.Html
+@using Model.DTOs
 @using System.Net.Http
 @using System.Net.Http.Json
 @inject HttpClient http
@@ -10,28 +12,46 @@
 
 <NavBar ShowNavBar="showNavBar"/>
 
-<div class="user-post-details">
-    <h3>User Posts</h3>
-    @if (true)
-    {
-        <ul>
-           
-            {
-                <li>
-                    <h4>UserName</h4>
-                    <div class="post-content" @innerHtml="PostContent"></div>
-                    <button class="approve-button" >Approve</button>
-                </li>
-            }
-        </ul>
-    }
-    else
-    {
-        <p>No posts available.</p>
-    }
-</div>
+
+   
+
+    <div class="user-post-details">
+        <h3>User Posts</h3>
+        @if (post != null && post.Any())
+        {
+            <ul>
+                @foreach (var p in post)
+                {
+                    <li>
+                        <h4>@p.AuthorName</h4>
+                        <div class="post-content" >
+                            @p.PostBody
+                        </div>
+                        <button class="approve-button" >Approve</button>
+                    </li>
+                }
+            </ul>
+        }
+        else
+        {
+            <p>No posts available.</p>
+        }
+    </div>
+
 
 @code {
     private bool showNavBar = true;
 
+    private List<PostForApprovalDto>? post = new List<PostForApprovalDto>(); 
+
+    private string apigetUrl = "http://localhost:5004/approval";
+
+
+    protected override async void OnInitialized()
+    {
+        base.OnInitialized();
+        post = await http.GetFromJsonAsync<List<PostForApprovalDto>>(apigetUrl);
+
+        Console.WriteLine(post);
+    }
 }
