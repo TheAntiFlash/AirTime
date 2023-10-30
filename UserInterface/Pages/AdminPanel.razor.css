@@ -1,0 +1,41 @@
+﻿/* Apply a margin to the top navigation bar */
+.navbar {
+    margin-top: 100px;
+}
+
+/* Apply a light blue background color to the top heading */
+.user-profile h3 {
+   
+    background-color: #cfe3ff; /* Light blue color */
+    padding: 10px;
+}
+
+/* Style the user table with borders */
+.user-table {
+   
+    width: 100%;
+    border: 1px solid #ddd; /* Add borders to the table */
+    border-collapse: collapse;
+    font-family: Arial, sans-serif;
+}
+
+    .user-table th, .user-table td {
+        border: 1px solid #ddd;
+        text-align: left;
+        padding: 8px;
+    }
+
+    .user-table th {
+        background-color: #f2f2f2;
+    }
+
+    .user-table tr:nth-child(even) {
+        background-color: #f2f2f2;
+    }
+
+/* Adjust styles for responsive tables on smaller screens */
+@media screen and (max-width: 600px) {
+    .user-table {
+        font-size: 12px;
+    }
+}

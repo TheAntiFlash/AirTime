@@ -1,0 +1,37 @@
+﻿@page "/approve-post"
+@using Model.Models
+@using System.Net.Http
+@using System.Net.Http.Json
+@inject HttpClient http
+@attribute [Authorize(policy: "RequireAuthenticatedUser", Roles = "Superadmin")]
+@layout MainLayout
+
+<PageTitle>Approve Posts</PageTitle>
+
+<NavBar ShowNavBar="showNavBar"/>
+
+<div class="user-post-details">
+    <h3>User Posts</h3>
+    @if (true)
+    {
+        <ul>
+           
+            {
+                <li>
+                    <h4>UserName</h4>
+                    <div class="post-content" @innerHtml="PostContent"></div>
+                    <button class="approve-button" >Approve</button>
+                </li>
+            }
+        </ul>
+    }
+    else
+    {
+        <p>No posts available.</p>
+    }
+</div>
+
+@code {
+    private bool showNavBar = true;
+
+}
