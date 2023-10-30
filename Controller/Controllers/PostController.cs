@@ -5,7 +5,7 @@ using Model.Models;
 
 namespace Controller.Controllers;
 
-[Route("api/post")]
+[Route("api/post/")]
 [ApiController]
 public class PostController : ControllerBase
 {
@@ -25,12 +25,20 @@ public class PostController : ControllerBase
     
 
     [HttpGet]
-    [Route("/approval")]
+    [Route("approval")]
     public async Task<IActionResult> GetPostsForApproval()
     {
         var posts = await _postService.GetPostsForApproval();
 
         return Ok(posts);
+    }
+
+    [HttpPatch]
+    [Route("approval/{post_id}/{is_approved}")]
+    public async Task<IActionResult> ApprovePost(int post_id, bool is_approved)
+    {
+        await _postService.ChangePostStatus(post_id, is_approved);
+        return Ok();
     }
     
     

@@ -22,4 +22,9 @@ public class PostService: IPostService
     {
         return await _repo.GetAllPosts();
     }
+
+    public async Task ChangePostStatus(int postId, bool approved)
+    {
+        await _repo.UpdatePostStatus(postId, approved);
+    }
 }

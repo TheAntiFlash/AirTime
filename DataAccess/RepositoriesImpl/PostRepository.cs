@@ -64,4 +64,26 @@ public class PostRepository: IPostRepository
         await con.CloseAsync();
         return posts;
     }
+
+    public async Task UpdatePostStatus(int postId,bool status)
+    {
+        SqlConnection con = DbContext.GetConnection();
+        SqlCommand cmd = new SqlCommand();
+        await con.OpenAsync();
+        if (status)
+        {
+            cmd = new SqlCommand("usp_PostUpdateApprove", con);
+            
+        }
+        else
+        {
+            cmd = new SqlCommand("usp_PostDisapprove", con);
+
+        }
+        cmd.CommandType = CommandType.StoredProcedure;
+        cmd.Parameters.AddWithValue("@postId", postId);
+        await cmd.ExecuteNonQueryAsync();
+        
+        await con.CloseAsync();
+    }
 }

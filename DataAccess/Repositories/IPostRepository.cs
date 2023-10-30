@@ -9,4 +9,6 @@ public interface IPostRepository
     public Task<Response<bool>> AddPost(PostDto post);
 
     public Task<List<PostForApprovalDto>> GetAllPosts();
+
+    public Task UpdatePostStatus(int postId, bool status);
 }
