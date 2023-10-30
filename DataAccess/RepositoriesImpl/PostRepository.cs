@@ -3,6 +3,7 @@ using DataAccess.Repositories;
 using Microsoft.Data.SqlClient;
 using Model.DTOs;
 using Model.DTOs.Response;
+using Model.Models;
 
 namespace DataAccess.RepositoriesImpl;
 
@@ -37,5 +38,30 @@ public class PostRepository: IPostRepository
         }
                 
         return new Response<bool>.Success(response);
+    }
+
+    public async Task<List<PostForApprovalDto>> GetAllPosts()
+    {
+        SqlConnection con = DbContext.GetConnection();
+
+        await con.OpenAsync();
+        SqlCommand cmd = new SqlCommand("usp_PostSelectAllForApproval", con);
+        cmd.CommandType = CommandType.StoredProcedure;
+        SqlDataReader reader = await cmd.ExecuteReaderAsync();
+        List<PostForApprovalDto> posts = new List<PostForApprovalDto>();
+        while (await reader.ReadAsync())
+        {
+            posts.Add(
+                new PostForApprovalDto()
+                {
+                    Postid = Convert.ToInt32(reader["id"]),
+                    PostBody = Convert.ToString(reader["body"])!,
+                    AuthorName = Convert.ToString(reader["username"])!,
+                }
+            );
+        }
+
+        await con.CloseAsync();
+        return posts;
     }
 }

@@ -2,7 +2,7 @@ using DataAccess.Repositories;
 using Model.DTOs;
 
 
-namespace Controller.Services;
+namespace Controller.Services.Impl;
 
 public class PostService: IPostService
 {
@@ -16,5 +16,10 @@ public class PostService: IPostService
     public async Task AddPost(PostDto post)
     {
        await _repo.AddPost(post);
+    }
+
+    public async Task<List<PostForApprovalDto>> GetPostsForApproval()
+    {
+        return await _repo.GetAllPosts();
     }
 }

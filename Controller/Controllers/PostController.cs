@@ -23,5 +23,15 @@ public class PostController : ControllerBase
         return Ok();
     }
     
+
+    [HttpGet]
+    [Route("/approval")]
+    public async Task<IActionResult> GetPostsForApproval()
+    {
+        var posts = await _postService.GetPostsForApproval();
+
+        return Ok(posts);
+    }
+    
     
 }
