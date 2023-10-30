@@ -6,18 +6,6 @@
 @using Model.Models
 
 
-
-@code {
-    [Parameter] public bool ShowNavBar { get; set; } = true;
-
-    private  async void LogoutUser()
-    {
-        await logout.Logout();
-        nm.NavigateTo("/");
-        Console.WriteLine("pressed");
-    }
-}
-
 @if(ShowNavBar)
 {
     <style>
@@ -97,7 +85,20 @@
                 <li><a >Contact</a></li>
                 <li><a href="writeblog">Write Post</a></li>
             </ul>
-            <button class="button signup-button" onclick="LogoutUser">Logout</button>
+            <button class="button signup-button" onclick="@LogoutUser">Logout</button>
         </div>
     </div>
+}
+
+
+@code {
+    [Parameter] public bool ShowNavBar { get; set; } = true;
+
+    private async Task LogoutUser()
+    {
+        Console.WriteLine("logout func ran");
+        await logout.Logout();
+        nm.NavigateTo("/", true);
+        Console.WriteLine("pressed");
+    }
 }

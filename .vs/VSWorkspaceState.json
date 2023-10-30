@@ -1,11 +1,6 @@
 {
   "ExpandedNodes": [
-    "",
-    "\\Controller",
-    "\\Controller\\Controllers",
-    "\\UserInterface",
-    "\\UserInterface\\Pages"
+    ""
   ],
-  "SelectedNode": "\\UserInterface\\Pages\\Register.razor",
   "PreviewInSolutionExplorer": false
 }
