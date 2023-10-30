@@ -1,4 +1,8 @@
 @page "/admin-panel"
+@using Model.Models
+@using System.Net.Http
+@using System.Net.Http.Json
+@inject HttpClient http
 @attribute [Authorize(policy: "RequireAuthenticatedUser", Roles = "Superadmin")]
 @layout MainLayout
 
@@ -6,13 +10,63 @@
 
 <!DOCTYPE html>
 
-<html>
-<head>
-    <title>THIS IS SUPER ADMIN PANNEL</title>
-</head>
-<body>
-<div>
-    <h1>THIS IS SUPER ADMIN PANNEL</h1>
-</div>
-</body>
-</html>
+@if (user != null)
+{
+    <table class="user-table">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Username</th>
+                <th>Email</th>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Role</th>
+                <th>Mobile Number</th>
+                <th>Date of Birth</th>
+                <th>Last Login</th>
+                <th>Gender</th>
+                
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var user in user)
+            {
+                <tr>
+                    <td>@user.Id</td>
+                    <td>@user.Username</td>
+                    <td>@user.Email</td>
+                   <td>@user.FirstName</td>
+                    <td>@user.LastName</td>
+                    <td>@user.Role</td>
+                    <td>@user.MobileNumber</td>
+                    <td>@user.DoB</td>
+                    <td>@user.LastLogin</td>
+                    <td>@user.Gender</td>
+                 
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <p>Loading...</p>
+}
+
+@code {
+    private List<User>? user = new List<User>();
+    private bool showNavBar = false; //to show navbar info 
+
+    private string apiUrl = "http://localhost:5004/api/user";
+
+
+    private string? error ;
+
+    protected override async void OnInitialized()
+    {
+        base.OnInitialized();
+        user = await http.GetFromJsonAsync<List<User>>(apiUrl);
+        
+        
+    }
+}
