@@ -8,4 +8,6 @@ public interface IUserRepository
     public Task<User?> GetUser(string username);
 
     public Task UpdateLastLogin(int id);
+
+    public Task<List<User>> GetAllUsers();
 }

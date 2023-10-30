@@ -16,7 +16,22 @@ public class User
     public bool? Gender { get; set; }
     public string? Description { get; set; }
     public DateTime CreatedAt { get; set; }
-    
+
+
+    /*public User(int id, string username, string email, string firstName, string lastName, string role, int? mobileNumber, DateOnly? doB, DateTime? lastLogin, bool? gender, string? description, DateTime createdAt)
+    {
+        Id = id;
+        Username = username;
+        Email = email;
+        FirstName = firstName;
+        LastName = lastName;
+        MobileNumber = mobileNumber;
+        DoB = doB;
+        LastLogin = lastLogin;
+        Gender = gender;
+        Description = description;
+        CreatedAt = createdAt;
+    }*/
 }
 
 

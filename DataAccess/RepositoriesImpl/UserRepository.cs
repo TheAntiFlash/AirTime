@@ -95,4 +95,33 @@ public class UserRepository : IUserRepository
         await con.CloseAsync();
 
     }
+
+    public async Task<List<User>> GetAllUsers()
+    {
+        SqlConnection con = DbContext.GetConnection();
+        
+        await con.OpenAsync();
+        SqlCommand cmd = new SqlCommand("usp_UserSelectAll", con);
+        cmd.CommandType = CommandType.StoredProcedure;
+        SqlDataReader reader = await cmd.ExecuteReaderAsync();
+        List<User> users = new List<User>();
+        while (await reader.ReadAsync())
+        {
+            users.Add(
+                    new User
+                    {
+                        Id = Convert.ToInt32(reader["id"]),
+                        Username = Convert.ToString(reader["username"])!,
+                        PasswordHash = Convert.ToString(reader["password_hash"])!,
+                        Email = Convert.ToString(reader["email"])!,
+                        FirstName = Convert.ToString(reader["first_name"])!,
+                        LastName = Convert.ToString(reader["last_name"])!,
+                        Role = Convert.ToString(reader["role_name"])!,
+                        CreatedAt = Convert.ToDateTime(reader["created_at"])
+                    }
+                );
+        }
+        await con.CloseAsync();
+        return users;
+    }
 }
