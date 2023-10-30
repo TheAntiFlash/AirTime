@@ -20,6 +20,7 @@ builder.Services.AddAuthentication();
 builder.Services.AddAuthorization(options =>
 {
     options.AddPolicy("RequireAuthenticatedUser", policy => policy.RequireAuthenticatedUser());
+    //options.AddPolicy("SuperadminPolicy", policy => policy.RequireRole("Superadmin"));
 });
 builder.Services.AddScoped<HttpClient>(sp => new HttpClient());
 

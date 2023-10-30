@@ -1,0 +1,18 @@
+@page "/admin-panel"
+@attribute [Authorize(policy: "RequireAuthenticatedUser", Roles = "Superadmin")]
+@layout MainLayout
+
+<PageTitle>Admin Panel</PageTitle>
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title>THIS IS SUPER ADMIN PANNEL</title>
+</head>
+<body>
+<div>
+    <h1>THIS IS SUPER ADMIN PANNEL</h1>
+</div>
+</body>
+</html>
