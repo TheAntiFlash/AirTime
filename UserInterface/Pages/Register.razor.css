@@ -1,142 +1,117 @@
 body {
-    font-family: Arial, sans-serif;
-    background-color: #f4f4f4;
+    background-color: #C3F1FF;
+    display: flex;
+    flex-direction: column;
+    
+}
+
+.page-body {
+    <margin: 0 0 50px;
     display: flex;
     justify-content: center;
-    align-items: center;
-    height: 100vh;
-    margin: 0;
+    flex-direction: row;
 }
 
-.signup-container {
+.login-image-and-text {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    justify-content: center;
+}
+
+.login-image-and-text h2 {
+    font-family: Poppins, sans-serif;
+    color: black;
+    font-weight: 520;
+    font-size: xxx-large;
+}
+.img-login {
+    height: 350px;
+}
+
+.page-header {
+    height: 27px;
+    justify-content: left;
+    display: flex;
+    flex-direction: row;
+}
+.page-header-airtime-title {
+    font-family: 'Poppins', sans-serif;
+    font-size: medium;
+    font-weight: 500;
+    font-style: normal;
+}
+
+.form-container {
     background: #fff;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-    padding: 30px;
+    padding: 30px 30px 10px 30px;
     width: 350px;
-    text-align: center;
+    text-align: left;
+    border-radius: 10px;
 }
 
-.signup-container h2 {
+.form-container h2 {
+    margin: 0 0 10px;
+    font-family: Poppins, sans-serif;
+    font-weight: 500;
+}
+.form-container h3 {
     margin: 0 0 20px;
-    font-family: "Brush Script MT", cursive;
-    font-size: 28px;
+    font-family: Poppins, sans-serif;
+    font-size: medium;
+    font-weight: 500;
+    color: #515151;
 }
 
 .form-group {
+    display: flex;
+    flex-direction: column;
     margin: 15px 0;
-}
+    text-align: left;}
 
-.form-group label {
-    display: block;
-    text-align: left;
-    margin-bottom: 5px;
-}
 
 .form-group input {
-    width: 100%;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
+    margin: 15px 0 0;
+    padding: 0;
+    border: none;
+    font-size: 12px;
+    border-bottom: 2px solid #ccc;
+    outline: none;
 }
 
 .btn-container {
     margin-top: 20px;
-    text-align: center; /* Center the button */
+    display: flex;
+    flex-direction: column;
 }
 
 .btn-container button {
-    padding: 10px 20px;
-    background: #007BFF;
-    color: #fff;
-    border: none;
+    padding: 8px 0;
+    margin-top: 50px;
+    background: none;
+    font-family: Poppins, sans-serif;
+    font-weight: 400;
+    color: #515151;
+    border: 1px solid #9B9898;
     border-radius: 5px;
-    cursor: pointer;
-    display: block; /* Make it a block-level element */
-    width: 100%; /* Full width within its container */
 }
 
-.btn-container a {
-    text-decoration: none;
-    color: #007BFF;
-    display: block; /* Display the link as a block-level element */
-    margin-top: 10px;
-}
 
-.btn-container a:hover {
-    text-decoration: underline;
-}
-
-body {
-    font-family: 'Vollkorn', serif;
-    background-color: #9CDBFF;
+.login-text {
+    font-family: Poppins, sans-serif;
+    color: #515151;
+    font-size: small;
+    font-weight: 300;
     display: flex;
     justify-content: center;
-    align-items: center;
-    height: 100vh;
-    margin: 0;
-    padding: 20px;
 }
 
-.form-container {
-    background: #ffffff;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    padding: 30px;
-    text-align: center;
-    border-radius: 8px;
-}
-
-.form-container h2 {
-    font-size: 28px;
-    font-weight: 700;
-    margin: 0 0 20px;
-    color: #000;
-}
-
-.form-container .form-group {
-    margin: 15px 0;
-}
-
-.form-container label {
-    display: block;
-    text-align: left;
-    margin-bottom: 5px;
-}
-
-.form-container input {
-    width: 100%;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    font-size: 16px;
-}
-
-.form-container input::placeholder {
-    color: #777; /* Placeholder text color */
-}
-
-.btn-container {
-    margin: 20px 0;
-    text-align: center;
-}
-
-.btn-container button {
-    padding: 12px 20px;
-    background: #4CAF50;
-    color: #fff;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 16px;
-    width: 100%;
-}
-
-.btn-container a {
+.login-link {
+    font-family: Poppins, sans-serif;
+    font-weight: bold;
+    font-size: small;
+    color: #515151;
     text-decoration: none;
-    color: #007BFF;
-    display: block;
-    margin-top: 10px;
-}
-
-.btn-container a:hover {
-    text-decoration: underline;
+    text-underline: none;
 }
