@@ -2,7 +2,7 @@
 @using Model.Models
 @using System.Net.Http
 @using System.Net.Http.Json
-@inject HttpClient http
+@inject HttpClient HttpClient
 @attribute [Authorize(policy: "RequireAuthenticatedUser", Roles = "Superadmin")]
 @layout MainLayout
 

@@ -5,7 +5,6 @@ namespace Controller.Controllers;
 
 [Route("api/[controller]")]
 [ApiController]
-[Authorize]
 public class ExampleController : ControllerBase
 {
     [HttpGet("posts")]
