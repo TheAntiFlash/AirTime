@@ -1,23 +1,63 @@
 body {
-    font-family: Arial, sans-serif;
-    background-color: #f4f4f4;
+    background-color: #C3F1FF;
+    display: flex;
+    flex-direction: column;
+    
+}
+.page-body {
     display: flex;
     justify-content: center;
-    align-items: center;
-    height: 100vh;
-    margin: 0;
+    flex-direction: row;
+    margin-top: 50px;
+}
+.login-image-and-text {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    justify-content: center;
 }
 
+.login-image-and-text h2 {
+    font-family: Poppins, sans-serif;
+    color: black;
+    font-weight: 520;
+    font-size: xxx-large;
+}
+.img-login {
+    height: 350px;
+}
+.page-header {
+    height: 27px;
+    justify-content: left;
+    display: flex;
+    flex-direction: row;
+}
+.page-header-airtime-title {
+    font-family: 'Poppins', sans-serif;
+    font-size: medium;
+    font-weight: 500;
+    font-style: normal;
+}
 .login-container {
     background: #fff;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
     padding: 30px;
     width: 350px;
-    text-align: center;
+    text-align: left;
+    border-radius: 10px;
 }
 
 .login-container h2 {
+    margin: 0 0 10px;
+    font-family: Poppins, sans-serif;
+    font-weight: 500;
+}
+.login-container h3 {
     margin: 0 0 20px;
+    font-family: Poppins, sans-serif;
+    font-size: medium;
+    font-weight: 500;
+    color: #515151;
 }
 
 .form-group {
@@ -27,14 +67,15 @@ body {
     text-align: left;
 }
 
-.form-group label {
-    margin-bottom: 5px;
-}
+
 
 .form-group input {
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
+    margin: 15px 0 0;
+    padding: 0;
+    border: none;
+    font-size: 12px;
+    border-bottom: 2px solid #ccc;
+    outline: none;
 }
 
 .btn-container {
@@ -43,29 +84,49 @@ body {
     flex-direction: column;
 }
 
-.btn-container button {
-    padding: 10px 0;
-    background: #007BFF;
-    color: #fff;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    margin: 5px 0;
-}
-
-.btn-container .signup-button {
-    background: #4CAF50;
-}
 
 .forgot-password {
-    margin-top: 10px;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: right;
 }
 
 .forgot-password a {
+    margin: 0;
+    padding: 0;
     text-decoration: none;
-    color: #007BFF;
+    font-size: small;
+    color: #515151;
 }
 
 .forgot-password a:hover {
     text-decoration: underline;
+}
+.login-button {
+    padding: 8px 0;
+    margin-top: 100px;
+    background: none;
+    font-family: Poppins, sans-serif;
+    font-weight: 400;
+    color: #515151;
+    border: 1px solid #9B9898;
+    border-radius: 5px;
+}
+.signup-text {
+    font-family: Poppins, sans-serif;
+    color: #515151;
+    font-size: small;
+    font-weight: 300;
+    display: flex;
+    justify-content: center;
+}
+
+.signup-link {
+    font-family: Poppins, sans-serif;
+    font-weight: bold;
+    font-size: small;
+    color: #515151;
+    text-decoration: none;
+    text-underline: none;
 }

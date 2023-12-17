@@ -16,33 +16,44 @@
     <title>AirTime.pk Login</title>
 </head>
 <body>
-<div class="login-container">
-    <h2>Login to AirTime.pk</h2>
-    <EditForm Model="@authDto" OnValidSubmit="Login">
-        <DataAnnotationsValidator />
-        <div class="form-group">
-            <label for="username">Username Or Email:</label>
-            <input type="text" id="username" name="username or email" placeholder="Username or Email" @bind="authDto.UsernameOrEmail" required>
-            <ValidationMessage For="@(() => authDto.UsernameOrEmail)"/>
-        </div>
-        <div class="form-group">
-            <label for="password">Password:</label>
-            <input type="password" id="password" name="password" placeholder="Password" @bind="authDto.Password" required>
-            <ValidationMessage For="@(() => authDto.Password)"/>
-        </div>
-        <div class="btn-container">
-            <button type="submit" >Login</button>
-            <button class="signup-button" type="submit" onclick="window.location.href='/register'" >Sign Up</button>
-        </div>
-          @if (!string.IsNullOrWhiteSpace(error))
+<div class="page-header">
+    <img class="page-header-airtime-icon img-fluid" src="images/airtime-icon.svg" alt="airtime.pk"/>
+    <h1 class="page-header-airtime-title">Airtime.pk</h1>
+</div>
+<div class="page-body">
+
+    <div class="login-container">
+        <h2>Welcome Back!</h2>
+        <h3>Login to your account</h3>
+        <EditForm Model="@authDto" OnValidSubmit="Login">
+            
+            <DataAnnotationsValidator/>
+            <div class="form-group">
+                <input type="text" id="username" name="username or email" placeholder="Enter Email or Username" @bind="authDto.UsernameOrEmail" required>
+                <ValidationMessage For="@(() => authDto.UsernameOrEmail)"/>
+            </div>
+            <div class="form-group">
+                <input type="password" id="password" name="password" placeholder="Enter Password" @bind="authDto.Password" required>
+                <ValidationMessage For="@(() => authDto.Password)"/>
+            </div>
+            <div class="forgot-password">
+                <a href="#">Forgot Password?</a>
+            </div>
+            <div class="btn-container">
+                <button class="login-button" type="submit">Login</button>
+                <p class="signup-text"> Don't have an account?&nbsp;<a class="signup-link" href="/register"> Sign up</a></p>
+            </div>
+            @if (!string.IsNullOrWhiteSpace(error))
             {
                 <div class="alert alert-danger">
                     @error
                 </div>
             }
-    </EditForm>
-    <div class="forgot-password">
-        <a href="#">Forgot Password?</a>
+        </EditForm>
+    </div>
+    <div class="login-image-and-text">
+        <h2>Let's Blog it</h2>
+        <img class="img-fluid img-login" src="images/airtime-login-image.svg" alt="airtime-login"/>
     </div>
 </div>
 </body>
@@ -71,13 +82,12 @@
 
         if (response.IsSuccessStatusCode)
         {
-            
             UserSession responseContent = await response.Content.ReadFromJsonAsync<UserSession>();
             Console.WriteLine("POST request was successful. Response: " + responseContent);
-            
-            
+
+
             await auth.Login(responseContent);
-            
+
             nm.NavigateTo("/home", true);
         }
         else
@@ -85,7 +95,6 @@
             Console.WriteLine("POST request failed. Status Code: " + response.StatusCode);
             string responseContent = await response.Content.ReadAsStringAsync();
             error = responseContent;
-
         }
     }
 }
