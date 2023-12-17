@@ -2,6 +2,7 @@
 @using Model.DTOs
 @inject NavigationManager nm
 @inject ILoginService auth
+@inject HttpClient httpClient
 @using System.Text.Json
 @using System.Text
 @using Model.Models
@@ -62,7 +63,6 @@
 @code
 {
     private AuthDto authDto = new();
-    private string apiUrl = "http://localhost:5004/api/login";
     private EditContext? editContext;
     private string error = string.Empty;
 
@@ -77,8 +77,7 @@
     {
         string jsonContent = JsonSerializer.Serialize(authDto);
         StringContent content = new(jsonContent, Encoding.UTF8, "application/json");
-        using var httpClient = new HttpClient();
-        var response = await httpClient.PostAsync(apiUrl, content);
+        var response = await httpClient.PostAsync("api/login", content);
 
         if (response.IsSuccessStatusCode)
         {

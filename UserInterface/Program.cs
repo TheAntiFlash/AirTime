@@ -7,13 +7,13 @@ using Microsoft.AspNetCore.Components.Web;
 using Microsoft.IdentityModel.Tokens;
 using UserInterface.Data;
 using UserInterface.Data.Authentication;
+using UserInterface.Data.HttpHeader;
 
 var builder = WebApplication.CreateBuilder(args);
-
+var config = builder.Configuration;
 // Add services to the container.
 builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
-builder.Services.AddSingleton<WeatherForecastService>();
 
 
 builder.Services.AddAuthentication();
@@ -22,8 +22,10 @@ builder.Services.AddAuthorization(options =>
     options.AddPolicy("RequireAuthenticatedUser", policy => policy.RequireAuthenticatedUser());
     //options.AddPolicy("SuperadminPolicy", policy => policy.RequireRole("Superadmin"));
 });
-builder.Services.AddScoped<HttpClient>(sp => new HttpClient());
-
+builder.Services.AddScoped<HttpClient>(sp => new HttpClient(new AddHeadersDelegatingHandler(config)) 
+{
+    BaseAddress = new Uri("http://localhost:5004/") 
+});
 builder.Services.AddScoped<AirtimeAuthenticationProvider>();
 builder.Services.AddScoped<AuthenticationStateProvider, AirtimeAuthenticationProvider>();
 builder.Services.AddScoped<ILoginService, AirtimeAuthenticationProvider>();

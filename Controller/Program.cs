@@ -1,4 +1,5 @@
 using System.Text;
+using Controller.Middleware;
 using Controller.Services;
 using Controller.Services.Impl;
 using DataAccess.Repositories;
@@ -45,9 +46,14 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
-
 app.UseHttpsRedirection();
+/*app.Use(async (context, next) =>
+{
+    context.Request.Headers.Add("XAPIKEY", "6a94d344-b268-441a-8d99-5e5f5665f0b1");
 
+    await next();
+});*/
+app.UseMiddleware<ApiKeyMiddleware>();
 app.UseAuthentication();
 app.UseAuthorization();
 
