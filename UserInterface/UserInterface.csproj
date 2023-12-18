@@ -17,7 +17,6 @@
 
     <ItemGroup>
       <Content Include="Pages\LogIn.razor.css" />
-      <Content Include="Pages\NavBar.razor.css" />
       <Content Include="Pages\OTP_View.razor.css" />
     </ItemGroup>
 
@@ -41,10 +40,6 @@
 
     <ItemGroup>
       <Folder Include="Images\" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <None Include="Pages\NavBar.razor" />
     </ItemGroup>
 
 </Project>

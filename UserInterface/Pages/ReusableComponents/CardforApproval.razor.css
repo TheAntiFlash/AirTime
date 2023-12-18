@@ -1,5 +1,4 @@
 ﻿
-@import url('https://fonts.googleapis.com/css?family=Merriweather|Open+Sans');
 
 .container {
     display: flex;
@@ -51,7 +50,8 @@ p {
     padding-left: 30px;
     padding-right: 30px;
     font-family: 'Open Sans', sans-serif;
-    font-size: 12px;
+    font-size: 14px;
+    font-weight: 400;
     color: #000000;
     line-height: 18px;
 }
