@@ -1,7 +1,8 @@
 ﻿@page "/home"
 @attribute [Authorize(policy: "RequireAuthenticatedUser")]
 @layout MainLayout
-@using UserInterface.Pages.ReusableComponents
+
+
 
 <PageTitle>Home</PageTitle>
 
@@ -57,7 +58,7 @@
 <body>
     <header>
         <nav>
-            <NavBar ShowNavBar="showNavbar" />
+            
         </nav>
     </header>
 

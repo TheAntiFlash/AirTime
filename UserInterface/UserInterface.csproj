@@ -12,13 +12,12 @@
 
     <ItemGroup>
       <None Remove="Pages\LogIn.razor.css" />
-      <None Remove="Pages\NavBar.razor.css" />
       <None Remove="Pages\OTP_View.razor.css" />
     </ItemGroup>
 
     <ItemGroup>
       <Content Include="Pages\LogIn.razor.css" />
-      <Content Include="Pages\ReusableComponents\NavBar.razor.css" />
+      <Content Include="Pages\NavBar.razor.css" />
       <Content Include="Pages\OTP_View.razor.css" />
     </ItemGroup>
 
@@ -45,7 +44,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <None Include="Pages\ReusableComponents\NavBar.razor" />
+      <None Include="Pages\NavBar.razor" />
     </ItemGroup>
 
 </Project>

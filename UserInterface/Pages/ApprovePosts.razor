@@ -2,14 +2,14 @@
 @using Model.Models
 @using System.Net.Http
 @using System.Net.Http.Json
-@using UserInterface.Pages.ReusableComponents
+
 @inject HttpClient HttpClient
 @attribute [Authorize(policy: "RequireAuthenticatedUser", Roles = "Superadmin")]
 @layout MainLayout
 
 <PageTitle>Approve Posts</PageTitle>
 
-<NavBar ShowNavBar="showNavBar"/>
+
 
 <div class="user-post-details">
     <h3>User Posts</h3>
