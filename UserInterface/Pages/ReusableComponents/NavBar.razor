@@ -1,0 +1,36 @@
+﻿
+@inject NavigationManager nm
+@inject ILoginService logout
+@using UserInterface.Data.Authentication
+
+
+
+@if(ShowNavBar)
+{
+     <div class="navbar-container">
+        <div class="navbar">
+            <div class="logo"><a href="/home">Airtime.pk</a></div>
+            <ul class="menu">
+                <li><a href="home" >Home</a></li>
+                <li><a >About</a></li>
+                <li><a href="approve-post">Approve Post</a></li>
+                <li><a href="admin-panel">Admin panel</a></li>
+                <li><a href="writeblog">Write Post</a></li>
+            </ul>
+            <button class="button signup-button" onclick="LogoutUser">Logout</button>
+        </div>
+    </div>
+}
+
+
+@code {
+    [Parameter] public bool ShowNavBar { get; set; } = true;
+
+    private async Task LogoutUser()
+    {
+        Console.WriteLine("logout func ran");
+        await logout.Logout();
+        nm.NavigateTo("/", true);
+        Console.WriteLine("pressed");
+    }
+}

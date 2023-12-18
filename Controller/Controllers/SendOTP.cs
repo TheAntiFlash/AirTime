@@ -1,5 +1,6 @@
 ﻿using MailKit.Net.Smtp;
 using MailKit.Security;
+using Model.DTOs;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using MimeKit;
@@ -12,17 +13,17 @@ namespace Controller.Controllers
     public class SendOTP : ControllerBase
     {
         [HttpPost]
-        public IActionResult SendEmail(string clientEmail, string OTP)
+        public IActionResult SendEmail(OTPDto otpdto)
         {
             var email = new MimeMessage();
             email.From.Add(MailboxAddress.Parse("areeshali007@gmail.com"));//sender email
-            email.To.Add(MailboxAddress.Parse(clientEmail));
+            email.To.Add(MailboxAddress.Parse(otpdto.Email));
 
             email.Subject = "OTP for Airtime.pk for Registration";
 
             email.Body = new TextPart(TextFormat.Plain)
             {
-                Text = "Your OTP is " + OTP
+                Text = "Your OTP is " + otpdto.OTP
             };
 
             using var smtpClient = new SmtpClient();
