@@ -20,7 +20,7 @@ public class PostService: IPostService
 
     public async Task<List<PostForApprovalDto>> GetPostsForApproval()
     {
-        return await _repo.GetAllPosts();
+        return await _repo.GetAllPostsForApproval();
     }
 
     public async Task ChangePostStatus(int postId, bool approved)

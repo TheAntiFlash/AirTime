@@ -40,7 +40,7 @@ public class PostRepository: IPostRepository
         return new Response<bool>.Success(response);
     }
 
-    public async Task<List<PostForApprovalDto>> GetAllPosts()
+    public async Task<List<PostForApprovalDto>> GetAllPostsForApproval()
     {
         SqlConnection con = DbContext.GetConnection();
 
