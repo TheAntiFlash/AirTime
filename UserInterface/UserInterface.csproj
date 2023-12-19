@@ -14,12 +14,14 @@
       <None Remove="Pages\LogIn.razor.css" />
       <None Remove="Pages\Navbar.razor.css" />
       <None Remove="Pages\OTP_View.razor.css" />
+      <None Remove="Pages\ReusableComponents\Footer.razor.css" />
     </ItemGroup>
 
     <ItemGroup>
       <Content Include="Pages\LogIn.razor.css" />
       <Content Include="Pages\Navbar.razor.css" />
       <Content Include="Pages\OTP_View.razor.css" />
+      <Content Include="Pages\ReusableComponents\Footer.razor.css" />
     </ItemGroup>
 
     <ItemGroup>
