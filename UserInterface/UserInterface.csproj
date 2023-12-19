@@ -12,11 +12,13 @@
 
     <ItemGroup>
       <None Remove="Pages\LogIn.razor.css" />
+      <None Remove="Pages\Navbar.razor.css" />
       <None Remove="Pages\OTP_View.razor.css" />
     </ItemGroup>
 
     <ItemGroup>
       <Content Include="Pages\LogIn.razor.css" />
+      <Content Include="Pages\Navbar.razor.css" />
       <Content Include="Pages\OTP_View.razor.css" />
     </ItemGroup>
 
@@ -40,6 +42,10 @@
 
     <ItemGroup>
       <Folder Include="Images\" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <None Include="wwwroot\images\logo.svg" />
     </ItemGroup>
 
 </Project>

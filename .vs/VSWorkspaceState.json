@@ -1,7 +1,9 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\UserInterface",
+    "\\UserInterface\\Pages"
   ],
-  "SelectedNode": "\\AirTime.sln",
+  "SelectedNode": "\\UserInterface\\Pages\\OTP_View.razor",
   "PreviewInSolutionExplorer": false
 }
