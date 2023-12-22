@@ -27,4 +27,14 @@ public class PostService: IPostService
     {
         await _repo.UpdatePostStatus(postId, approved);
     }
+
+    public async Task<int> GetTotalNumberOfPosts()
+    {
+        return await _repo.GetTotalCountOfPosts();
+    }
+
+    public async Task<List<PostDto>> GetAllPostsForUser(int userId, int offset, int pageSize)
+    {
+        return await _repo.GetPostsForYou(userId, offset, pageSize);
+    }
 }

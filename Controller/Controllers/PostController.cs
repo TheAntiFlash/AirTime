@@ -22,7 +22,22 @@ public class PostController : ControllerBase
         await _postService.AddPost(req);
         return Ok();
     }
-    
+
+    [HttpGet]
+    [Route("{userId}/{postsOffset}/{pageSize}")]
+    public async Task<IActionResult> GetPostsForUser(int userId, int postsOffset, int pageSize)
+    {
+        try
+        {
+            var posts = await _postService.GetAllPostsForUser(userId, postsOffset, pageSize);
+            return Ok(posts);
+
+        }
+        catch (Exception e)
+        {
+            return Problem(detail: e.Message);
+        }
+    }
 
     [HttpGet]
     [Route("approval")]
