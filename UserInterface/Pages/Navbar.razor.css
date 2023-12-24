@@ -1,62 +1,65 @@
-﻿body{
-    font-family: 'Open Sans', sans-serif;
+﻿@@import url('https://fonts.googleapis.com/css2?family=Open+Sans');
 
+body {
+    font-family: 'Open Sans', sans-serif;
 }
-*{
+
+* {
     margin: 0;
-    padding: 0;
+    
     list-style: none;
     text-decoration: none;
-
 }
-nav{
+
+nav {
     height: 80px;
     background: #2c3e50;
 }
 
-nav img{
-    width: 150px;
-    position: absolute;
-    top: 25px;
-    left: 8%;
-}
+    nav img {
+        width: 150px;
+        position: relative;
+        top: 25px;
+        left: 8%;
+    }
 
-nav ul{
-    float: right;
-    margin-right: 25px;
+    nav ul {
+        float: right;
+        margin-right: 25px;
+    }
 
-}
+        nav ul li {
+            display: inline-block;
+            line-height: 80px;
+            margin: 0 15px;
+        }
 
-nav ul li{
-    display: inline-block;
-    line-height: 80px;
-    margin: 0 15px;
-}
-nav ul li a{
-    position: relative;
-    color: white;
-    font-size: 16px;
-    padding: 5px 0;
-    text-transform: uppercase;
-}
+            nav ul li a {
+                position: relative;
+                color: white;
+                font-size: 16px;
+                padding: 5px 0;
+                text-transform: uppercase;
+            }
 
-nav ul li a:before{
-    position: absolute;
-    content: '';
-    left: 0;
-    bottom: 0;
-    height: 3px;
-    width: 100%;
-    background: white;
-    transform: scaleX(0);
-    transform-origin: right;
-    transition: transform .4s linear;
-}
+                nav ul li a:before {
+                    position: absolute;
+                    content: '';
+                    left: 0;
+                    bottom: 0;
+                    height: 3px;
+                    width: 100%;
+                    background: white;
+                    transform: scaleX(0);
+                    transform-origin: right;
+                    transition: transform .4s linear;
+                }
 
-nav ul li a:hover:before{
-    transform: scaleX(1);
-    transform-origin: left;
-}
+                nav ul li a:hover:before {
+                    transform: scaleX(1);
+                    transform-origin: left;
+                }
+
 label #btn,
 label #cancel {
     color: white;
@@ -67,35 +70,35 @@ label #cancel {
     cursor: pointer;
     display: none;
 }
-#check{
-    display: none;
 
+#check {
+    display: none;
 }
-@media(max-width: 1118px){
-    nav img{
+
+@media(max-width: 1118px) {
+    nav img {
         left: 8%;
     }
 }
 
-@media(max-width: 944px){
-    nav img{
+@media(max-width: 944px) {
+    nav img {
         left: 6%;
-       
         width: 130px;
-
     }
+
     nav ul li a {
         font-size: 17px;
-
     }
 }
 
-@media(max-width: 860px){
-    
-    label #btn{
+@media(max-width: 860px) {
+
+    label #btn {
         display: block;
     }
-    ul{
+
+    ul {
         position: fixed;
         width: 100%;
         background: #34495e;
@@ -104,29 +107,28 @@ label #cancel {
         left: -100%;
         text-align: center;
         transition: all .5s;
-
     }
-    nav ul li{
+
+    nav ul li {
         display: block;
         margin: 50px 0;
         line-height: 30px;
     }
 
-    nav ul li a {
-        font-size: 20px;
+        nav ul li a {
+            font-size: 20px;
+        }
 
-    }
-    #check:checked ~ ul{
+    #check:checked ~ ul {
         left: 0;
-
-    }
-    #check:checked ~ label #btn{
-        display: none;
-    }
-    #check:checked ~ label #cancel{
-        display: none;
     }
 
+    #check:checked ~ label #btn {
+    }
+
+    #check :checked ~ label #cancel {
+        display: none;
+    }
 }
 
 .button-17 {
@@ -161,39 +163,39 @@ label #cancel {
     width: auto;
     will-change: transform,opacity;
     z-index: 0;
-  }
-  
-  .button-17:hover {
-    background: #F6F9FE;
-    color: #174ea6;
-  }
-  
-  .button-17:active {
-    box-shadow: 0 4px 4px 0 rgb(60 64 67 / 30%), 0 8px 12px 6px rgb(60 64 67 / 15%);
-    outline: none;
-  }
-  
-  .button-17:focus {
-    outline: none;
-    border: 2px solid #4285f4;
-  }
-  
-  .button-17:not(:disabled) {
-    box-shadow: rgba(60, 64, 67, .3) 0 1px 3px 0, rgba(60, 64, 67, .15) 0 4px 8px 3px;
-  }
-  
-  .button-17:not(:disabled):hover {
-    box-shadow: rgba(60, 64, 67, .3) 0 2px 3px 0, rgba(60, 64, 67, .15) 0 6px 10px 4px;
-  }
-  
-  .button-17:not(:disabled):focus {
-    box-shadow: rgba(60, 64, 67, .3) 0 1px 3px 0, rgba(60, 64, 67, .15) 0 4px 8px 3px;
-  }
-  
-  .button-17:not(:disabled):active {
-    box-shadow: rgba(60, 64, 67, .3) 0 4px 4px 0, rgba(60, 64, 67, .15) 0 8px 12px 6px;
-  }
-  
-  .button-17:disabled {
-    box-shadow: rgba(60, 64, 67, .3) 0 1px 3px 0, rgba(60, 64, 67, .15) 0 4px 8px 3px;
-  }
+}
+
+    .button-17:hover {
+        background: #F6F9FE;
+        color: #174ea6;
+    }
+
+    .button-17:active {
+        box-shadow: 0 4px 4px 0 rgb(60 64 67 / 30%), 0 8px 12px 6px rgb(60 64 67 / 15%);
+        outline: none;
+    }
+
+    .button-17:focus {
+        outline: none;
+        border: 2px solid #4285f4;
+    }
+
+    .button-17:not(:disabled) {
+        box-shadow: rgba(60, 64, 67, .3) 0 1px 3px 0, rgba(60, 64, 67, .15) 0 4px 8px 3px;
+    }
+
+        .button-17:not(:disabled):hover {
+            box-shadow: rgba(60, 64, 67, .3) 0 2px 3px 0, rgba(60, 64, 67, .15) 0 6px 10px 4px;
+        }
+
+        .button-17:not(:disabled):focus {
+            box-shadow: rgba(60, 64, 67, .3) 0 1px 3px 0, rgba(60, 64, 67, .15) 0 4px 8px 3px;
+        }
+
+        .button-17:not(:disabled):active {
+            box-shadow: rgba(60, 64, 67, .3) 0 4px 4px 0, rgba(60, 64, 67, .15) 0 8px 12px 6px;
+        }
+
+    .button-17:disabled {
+        box-shadow: rgba(60, 64, 67, .3) 0 1px 3px 0, rgba(60, 64, 67, .15) 0 4px 8px 3px;
+    }
