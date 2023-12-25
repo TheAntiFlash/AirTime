@@ -2,95 +2,59 @@
 @attribute [Authorize(policy: "RequireAuthenticatedUser")]
 @layout MainLayout
 
-<PageTitle>Home</PageTitle>
-
-
 <!DOCTYPE html>
-
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Angular v12 is now available</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-        }
-
-        header {
-            
-            color: #fff;
-            text-align: center;
-            padding: 50px 0;
-        }
-
-       
-
-        .blog-post {
-            text-align: justify;
-            padding: 20px;
-        }
-
-            .blog-post h1 {
-                font-size: 28px;
-            }
-
-            .blog-post p {
-                margin: 10px 0;
-            }
-
-            .blog-post img {
-                max-width: 100%;
-            }
-
-        footer {
-            background-color: #333;
-            color: #fff;
-            text-align: center;
-            padding: 10px 0;
-        }
-    </style>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link rel="stylesheet" href="style.css">
+    <title>HomeCard</title>
 </head>
 <body>
-    <header>
-        <nav>
-            <NavBar ShowNavBar="showNavbar" />
-        </nav>
-    </header>
+  <div class="header-Details">
+    <h2>Learn What's Best</h2>
+    <p>"Educate & Elevate: Navigating the Path to Enlightenment.”
+    </p>
+    <hr>
+  </div>
 
-    <section class="blog-post">
-        <h1>Angular v12 is now available</h1>
-        <p>Published on: October 10, 2023 by Areesh Ali</p>
-        <img src="https://miro.medium.com/v2/resize:fit:2000/format:webp/0*niE3vFyldZ4dJrLq.png" alt="Blog Post Image">
-        <p>
-            It’s that time again, friends — we’re back with a new release and we can’t wait to share all the great updates and features waiting for you in Angular v12.
-        </p>
-        <p>
-            Before we dive into those updates, let’s check in on the Angular journey. A vital key to Angular’s future is Ivy and what it unlocks for the platform. We have been working over recent releases towards the goal of converging the Angular ecosystem on Ivy. We like to call this approach “Ivy Everywhere”.
-        </p>
-        <p>
-            Here are the changes we are making to enable this transition.
-        </p>
-        <h2>Moving Closer to Ivy Everywhere</h2>
-        <p>The key moment in the next evolution of Angular has finally arrived — we are finally deprecating View Engine. This is what it means for the community.</p>
-        <p>Now that View Engine is deprecated, it will be removed in a future major release.</p>
-        <p>Current libraries using View Engine will still work with Ivy apps (no work is required by developers), but library authors should start planning to transition to Ivy.</p>
-        <p>We wrote a blog post providing details about this change and what it means for library authors and more.</p>
-        <h2>Transitioning from Legacy i18n Message IDs</h2>
-        <p>Currently, there are multiple legacy message id formats being used in our i18n system. These legacy message ids are fragile as problems can arise based on whitespace and the formatting templates and ICU expressions. To solve this problem we’re migrating away from them. The new canonical message id format is much more resilient and intuitive. This format will reduce the unnecessary translation invalidation and associated retranslation cost in applications where translations do not match due to whitespace changes, for example.</p>
-        <p>Since v11, new projects are automatically configured to use the new message ids and we now have tooling to migrate existing projects with existing translations. Find out more here.</p>
-        <h2>The Future of Protractor</h2>
-        <p>The Angular team has been working with the community to determine the future of Protractor. We’re currently reviewing the feedback shared in the RFC. We’re still figuring out the best future for Protractor. We’ve opted to not include it in new projects and, instead, provide options with popular 3rd party solutions in the Angular CLI. We are currently working with Cypress, WebdriverIO, and TestCafe to help users adopt the alternative solutions. More information to come as this develops.</p>
-        <h2>Nullish Coalescing</h2>
-        <p>The nullish coalescing operator (??) has been helping developers write cleaner code in TypeScript classes for a while now. We’re thrilled to announce that you can bring the power of nullish coalescing to Angular templates in v12!</p>
-        <p>Now, in templates, developers can use the new syntax to simplify complex conditionals.</p>
-    </section>
 
-    <footer>
-        <p>&copy; 2023 Airtime.pk</p>
-    </footer>
+  <div class="blog-topic">
+    <h3>Blog Topics</h3>
+    <ul>
+      <li><a href="">Artificial Intelligence</a></li>
+      <li><a href="">Machine Learning</a></li>
+      <li><a href="">Neural Networks</a></li>
+      <li><a href="">Hospitality and Tourism</a></li>
+      <li><a href="">Engineering</a></li>
+      
+
+    </ul> <!-- blog-topic -->
+  </div>  <!-- blog-topic -->
+  <div class="tag-line">
+    <button type="button" class="btn btn-outline-primary">AI</button>
+    <button type="button" class="btn btn-outline-primary">Machine Learning</button>
+    <button type="button" class="btn btn-outline-primary">Neural Networks</button>
+  </div>  <!-- tag-line -->
+    <div class="card-section">
+      <a href="">
+      <div class="card mb-3" style="max-width: 900px;">
+        <div class="row g-0">
+          <div class="col-md-4">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRebeIoR84C98bpu9PvPTAqFsnpdS4yDr07rQ&usqp=CAU" class="img-fluid rounded-start" alt="...">
+          </div> <!-- col-md-4 -->
+          <div class="col-md-8">
+            <div class="card-body">
+              <h5 class="card-title">Card title</h5>
+              <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+              <p class="card-text"><small class="text-body-secondary">Last updated 3 mins ago</small></p>
+            </div> <!-- card-body -->
+          </div> <!-- col-md-8 -->
+        </div>  <!-- row -->
+      </div> <!-- card -->
+    </a> <!-- action button-->
+    </div> <!-- card-section -->
 </body>
 </html>
 

@@ -1,0 +1,52 @@
+﻿﻿<!-- NavBar.razor -->
+@using Model.DTOs
+@inject NavigationManager nm
+@inject ILoginService logout
+@using UserInterface.Data.Authentication
+@using Model.Models
+
+
+@if(ShowNavBar)
+{
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+       
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+
+       
+    </head>
+
+    <header>
+        <nav>
+            <input type="checkbox" id="check">
+            <label for="check">
+                <i class="fa fa-book" id="btn"></i>
+                <i class="fas fa-check" id="cancel"></i>
+            </label>
+            <img src="~/images/airtime-icon.svg" alt="Airtime.pk- logo">
+            <ul>
+                <li><a href="#">Home</a></li>
+                <li><a href="#">Write Post</a></li>
+                <li><a href="#">My Posts</a></li>
+                <li><a href="#">About us</a></li>
+                <li><a href="#">Contact Us</a></li>
+                <button class="button-17" role="button">Logout</button>
+            </ul>
+        </nav>
+    </header>
+}
+
+
+@code {
+    [Parameter] public bool ShowNavBar { get; set; } = true;
+
+    private async Task LogoutUser()
+    {
+        Console.WriteLine("logout func ran");
+        await logout.Logout();
+        nm.NavigateTo("/", true);
+        Console.WriteLine("pressed");
+    }
+}

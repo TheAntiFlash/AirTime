@@ -11,6 +11,22 @@
     </ItemGroup>
 
     <ItemGroup>
+      <None Remove="Pages\Blog_View.razor.css" />
+      <None Remove="Pages\LogIn.razor.css" />
+      <None Remove="Pages\Navbar.razor.css" />
+      <None Remove="Pages\OTP_View.razor.css" />
+      <None Remove="Pages\ReusableComponents\Footer.razor.css" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Content Include="Pages\Blog_View.razor.css" />
+      <Content Include="Pages\LogIn.razor.css" />
+      <Content Include="Pages\Navbar.razor.css" />
+      <Content Include="Pages\OTP_View.razor.css" />
+      <Content Include="Pages\ReusableComponents\Footer.razor.css" />
+    </ItemGroup>
+
+    <ItemGroup>
       <PackageReference Include="Microsoft.AspNetCore.Components" Version="7.0.12" />
       <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="8.0.0-rc.2.23479.6" />
       <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="8.0.0-rc.2.23479.6" />
@@ -33,7 +49,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <None Include="Pages\NavBar.razor" />
+      <None Include="wwwroot\images\logo.svg" />
     </ItemGroup>
 
 </Project>

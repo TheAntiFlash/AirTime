@@ -1,6 +1,9 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\UserInterface",
+    "\\UserInterface\\Pages"
   ],
+  "SelectedNode": "\\UserInterface\\Pages\\Home.razor",
   "PreviewInSolutionExplorer": false
 }

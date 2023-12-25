@@ -1,0 +1,58 @@
+﻿body{
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+.header-Details{
+    width: 100%;
+    height: fit-content;
+    position: fixed;
+    top: 10%;
+}
+.tag-line{
+    width: fit-content;
+    height: fit-content;
+    display: inline;
+    position: relative;
+    left: 30%;       
+    top: 200px;
+    padding: auto;
+}
+
+.card-section{
+    /* background-color: aqua; */
+    width: fit-content;
+    height: fit-content;
+    position: relative;
+    left: 30%;
+    top: 200px;
+    padding: 10px;
+    
+
+}
+a{
+    text-decoration: none;
+   
+}
+
+.blog-topic{
+   width: 250px;
+   height: fit-content;
+   background-color: beige;
+   position:fixed;
+   top: 30%;
+   left: 50px;
+   outline:#0003;
+    border: 1px  #0003;
+    padding: 20px;
+}
+ li{
+    list-style-type: none;
+    ;
+ }
+ 
+ li a{
+    text-decoration: none;
+    color: black;
+    font-size: 16px;
+    font-weight: 600;
+    
+ }
