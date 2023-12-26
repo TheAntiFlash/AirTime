@@ -65,7 +65,7 @@ public class AuthService : IAuthService
         }
 
         await _userRepo.UpdateLastLogin(user.Id);
-        var token = CreateToken(user);
+        //var token = CreateToken(user);
         UserSession userSession = new()
         {
             Username = user.Username,
@@ -77,7 +77,7 @@ public class AuthService : IAuthService
         
         
         
-        return new Response<Object>.Success(userSession);
+        return new Response<object>.Success(userSession);
     }
     
     private string CreateToken(User user)

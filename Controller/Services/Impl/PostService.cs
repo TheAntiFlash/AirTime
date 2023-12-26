@@ -15,7 +15,14 @@ public class PostService: IPostService
 
     public async Task AddPost(PostDto post)
     {
-       await _repo.AddPost(post);
+        try
+        {
+            await _repo.AddPost(post);
+        }
+        catch (Exception e)
+        {
+            
+        }
     }
 
     public async Task<List<PostForApprovalDto>> GetPostsForApproval()
@@ -23,9 +30,9 @@ public class PostService: IPostService
         return await _repo.GetAllPostsForApproval();
     }
 
-    public async Task ChangePostStatus(int postId, bool approved)
+    public async Task ChangePostStatus(int postId, bool approved, int approvedById)
     {
-        await _repo.UpdatePostStatus(postId, approved);
+        await _repo.UpdatePostStatus(postId, approved, approvedById);
     }
 
     public async Task<int> GetTotalNumberOfPosts()

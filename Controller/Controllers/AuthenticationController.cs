@@ -22,30 +22,27 @@ public class AuthenticationController : ControllerBase
     [Route("register")]
     public async Task<IActionResult> Register(UserRegDto req)
     {
-        Response<bool> response = await _authService.RegisterUser(req);
-        if (response is Response<bool>.Success)
+        var response = await _authService.RegisterUser(req);
+        return response switch
         {
-            return Accepted();
-        }
-        if (response is Response<bool>.Failure failure)
-        {
-            return BadRequest(failure.E?.Message);
-        }
-        return StatusCode(500);
+            Response<bool>.Success => Accepted(),
+            Response<bool>.Failure failure => BadRequest(failure.E?.Message),
+            _ => StatusCode(500)
+        };
     }
 
     [HttpPost]
     [Route("login")]
     public async Task<IActionResult> Login(AuthDto req)
     {
-        Response<Object> res = await _authService.LoginUser(req);
+        var res = await _authService.LoginUser(req);
 
-        if (res is Response<Object>.Failure failure)
+        if (res is Response<object>.Failure failure)
         {
             return BadRequest(failure.E!.Message);
         }
 
-        UserSession response = (res as Response<Object>.Success)!.Data as UserSession;
+        var response = (res as Response<object>.Success)!.Data as UserSession;
         return Ok(response);
     }
 }

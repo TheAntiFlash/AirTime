@@ -9,7 +9,7 @@ public interface IPostRepository
     public Task<List<PostDto>> GetPostsForYou(int userId, int offset = 0, int pageSize = 20);
     public Task<List<PostForApprovalDto>> GetAllPostsForApproval();
 
-    public Task UpdatePostStatus(int postId, bool status);
+    public Task UpdatePostStatus(int postId, bool status, int approvedById);
     public Task<int> GetTotalCountOfPosts();
 
 }

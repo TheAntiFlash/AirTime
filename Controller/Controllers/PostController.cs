@@ -24,7 +24,7 @@ public class PostController : ControllerBase
     }
 
     [HttpGet]
-    [Route("{userId}/{postsOffset}/{pageSize}")]
+    [Route("{postsOffset:int}/{pageSize:int}")]
     public async Task<IActionResult> GetPostsForUser(int userId, int postsOffset, int pageSize)
     {
         try
@@ -49,11 +49,20 @@ public class PostController : ControllerBase
     }
 
     [HttpPatch]
-    [Route("approval/{post_id}/{is_approved}")]
-    public async Task<IActionResult> ApprovePost(int post_id, bool is_approved)
+    [Route("approval/{postId:int}/{isApproved:bool}")]
+    public async Task<IActionResult> ApprovePost(int postId, bool isApproved, int approvedById)
     {
-        await _postService.ChangePostStatus(post_id, is_approved);
+        await _postService.ChangePostStatus(postId, isApproved, approvedById);
         return Ok();
+    }
+    
+    [HttpGet]
+    [Route("approved-count")]
+    public async Task<IActionResult> GetPostsApprovedCount()
+    {
+        var count = await _postService.GetTotalNumberOfPosts();
+
+        return Ok(count);
     }
     
     

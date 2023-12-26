@@ -99,7 +99,7 @@ public class PostRepository: IPostRepository
         return posts;
     }
 
-    public async Task UpdatePostStatus(int postId,bool status)
+    public async Task UpdatePostStatus(int postId,bool status, int approvedById)
     {
         SqlConnection con = DbContext.GetConnection();
         SqlCommand cmd = new SqlCommand();
@@ -116,6 +116,7 @@ public class PostRepository: IPostRepository
         }
         cmd.CommandType = CommandType.StoredProcedure;
         cmd.Parameters.AddWithValue("@postId", postId);
+        cmd.Parameters.AddWithValue("@approvedBy", approvedById);
         await cmd.ExecuteNonQueryAsync();
         
         await con.CloseAsync();
