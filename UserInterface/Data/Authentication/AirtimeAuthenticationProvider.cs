@@ -62,6 +62,7 @@ public class AirtimeAuthenticationProvider : AuthenticationStateProvider, ILogin
                     new("Firstname", userSession.FirstName),
                     new(ClaimTypes.Surname, userSession.LastName)
                 },"AirtimeAuth"));
+            
         NotifyAuthenticationStateChanged(Task.FromResult(new AuthenticationState(claimsPrincipal)));
     }
 
