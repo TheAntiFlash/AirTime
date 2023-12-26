@@ -23,6 +23,15 @@ public class PostController : ControllerBase
         return Ok();
     }
 
+    /**
+     * <summary>
+     * Gets the posts for optimized for a user according to who he follows in chunks of pageSize.
+     * </summary>
+     * <param name="userId">Id of the user currently logged in</param>
+     * <param name="pageSize">How many posts per page</param>
+     * <param name="postsOffset">skipping the first x posts and fetching the next posts == pageSize</param>
+     * <example> "api/post/20/20" gets posts 21-40</example>
+     */
     [HttpGet]
     [Route("{postsOffset:int}/{pageSize:int}")]
     public async Task<IActionResult> GetPostsForUser(int userId, int postsOffset, int pageSize)
@@ -56,6 +65,12 @@ public class PostController : ControllerBase
         return Ok();
     }
     
+    /**
+     * <summary>
+     * Get Total number of approved posts to show how many pages.
+     * i.e x/y at the bottom of home page
+     * </summary>
+     */
     [HttpGet]
     [Route("approved-count")]
     public async Task<IActionResult> GetPostsApprovedCount()
