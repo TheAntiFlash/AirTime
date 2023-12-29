@@ -16,6 +16,7 @@ public class PostDto
     public string? AuthorName { get; set; } = null;
     public string? SubCategoryName { get; set; } = null;
     public DateTime? PostApprovalTime { get; set; } = null;
+    public bool? Approved { get; set; } = null;
 
 
 }

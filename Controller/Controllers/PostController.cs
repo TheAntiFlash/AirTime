@@ -1,6 +1,7 @@
 using Controller.Services;
 using Microsoft.AspNetCore.Mvc;
 using Model.DTOs;
+using Model.DTOs.Response;
 using Model.Models;
 
 namespace Controller.Controllers;
@@ -79,6 +80,28 @@ public class PostController : ControllerBase
 
         return Ok(count);
     }
-    
-    
+
+    /**
+     * <summary>
+     * Get specific post by Id
+     * </summary>
+     * <param name="postId">Id of post to fetch</param>
+     * <returns>200 OK Response when post found.
+     * 404 Not Found Response when post does not exist.
+     * 500 Problem Response when some server side error occurs.</returns>
+     */
+    [HttpGet]
+    [Route("{postId:int}")]
+    public async Task<IActionResult> GetPost(int postId)
+    {
+        var response = await _postService.GetPostById(postId);
+        return response switch
+        {
+            Response<PostDto>.Success success => Ok(success.Data),
+            Response<PostDto>.Failure failure => failure.E.Message == "Post Not Found"
+                ? NotFound(failure.E.Message)
+                : Problem("Something Went Wrong", statusCode: 500),
+            _ => Problem("Something Went Wrong", statusCode: 500)
+        };
+    }
 }

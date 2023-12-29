@@ -26,7 +26,7 @@ public class AuthenticationController : ControllerBase
         return response switch
         {
             Response<bool>.Success => Accepted(),
-            Response<bool>.Failure failure => BadRequest(failure.E?.Message),
+            Response<bool>.Failure failure => BadRequest(failure.E.Message),
             _ => StatusCode(500)
         };
     }

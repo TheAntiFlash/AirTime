@@ -1,5 +1,6 @@
 using DataAccess.Repositories;
 using Model.DTOs;
+using Model.DTOs.Response;
 
 
 namespace Controller.Services.Impl;
@@ -43,5 +44,10 @@ public class PostService: IPostService
     public async Task<List<PostDto>> GetAllPostsForUser(int userId, int offset, int pageSize)
     {
         return await _repo.GetPostsForYou(userId, offset, pageSize);
+    }
+
+    public async Task<Response<PostDto>> GetPostById(int postId)
+    {
+        return await _repo.GetPost(postId);
     }
 }
