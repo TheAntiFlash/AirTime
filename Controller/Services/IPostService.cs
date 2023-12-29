@@ -1,4 +1,5 @@
 using Model.DTOs;
+using Model.DTOs.Response;
 
 namespace Controller.Services;
 
@@ -13,4 +14,6 @@ public interface IPostService
     public Task<int> GetTotalNumberOfPosts();
 
     public Task<List<PostDto>> GetAllPostsForUser(int userId, int offset, int pageSize);
+
+    public Task<Response<PostDto>> GetPostById(int postId);
 }

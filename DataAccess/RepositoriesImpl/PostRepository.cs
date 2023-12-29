@@ -1,6 +1,7 @@
 using System.Data;
 using DataAccess.Repositories;
 using Microsoft.Data.SqlClient;
+using Microsoft.Extensions.Logging;
 using Model.DTOs;
 using Model.DTOs.Response;
 using Model.Models;
@@ -9,6 +10,13 @@ namespace DataAccess.RepositoriesImpl;
 
 public class PostRepository: IPostRepository
 {
+    private readonly ILogger<PostRepository> _logger;
+
+    public PostRepository(ILogger<PostRepository> logger)
+    {
+        _logger = logger;
+    }
+
     public async Task<Response<bool>> AddPost(PostDto post)
     {
         SqlConnection con = DbContext.GetConnection();
@@ -130,5 +138,52 @@ public class PostRepository: IPostRepository
         int postsCount = (int)query.ExecuteScalar();
         await con.CloseAsync();
         return postsCount;
+    }
+
+    public async Task<Response<PostDto>> GetPost(int postId)
+    {
+        SqlConnection con = DbContext.GetConnection();
+        await con.OpenAsync();
+        SqlCommand cmd = new SqlCommand("usp_PostSelectById", con);
+        cmd.CommandType = CommandType.StoredProcedure;
+        cmd.Parameters.AddWithValue("@postId", postId);
+        Response<PostDto> response;
+        try
+        {
+            var reader = await cmd.ExecuteReaderAsync();
+
+            if (await reader.ReadAsync())
+            {
+                PostDto post = new()
+                {
+                    Id = Convert.ToInt32(reader["id"]),
+                    Title = Convert.ToString(reader["title"])!,
+                    SubCategoryId = Convert.ToInt32(reader["sub_category_id"]),
+                    SubCategoryName = Convert.ToString(reader["sub_category_name"]),
+                    Body = Convert.ToString(reader["body"])!,
+                    Approved = Convert.ToBoolean(reader["approved"]),
+                    AuthorId = Convert.ToInt32(reader["author_id"]),
+                    AuthorName = Convert.ToString(reader["author_name"]),
+                    PostApprovalTime = Convert.ToDateTime(reader["approved_at"]),
+                    MetaDescription = Convert.ToString(reader["meta_description"])!,
+                    ImageSrc = Convert.ToString(reader["image_src"]),
+                };
+                response = new Response<PostDto>.Success(post);
+            }
+            else
+            {
+                throw new Exception("Post Not Found");
+            }
+
+           
+        }
+        catch (Exception e)
+        {
+            _logger.LogError(e, "PostRepository - GetPostById Method");
+            response = new Response<PostDto>.Failure(e);
+        }
+
+        await con.CloseAsync();
+        return response;
     }
 }

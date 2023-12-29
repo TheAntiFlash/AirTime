@@ -14,7 +14,7 @@ public class Response<T>
 
     public class Failure : Response<T>
     {
-        public Exception? E { get; set; }
+        public Exception E { get; set; }
 
         public Failure(Exception e)
         {
