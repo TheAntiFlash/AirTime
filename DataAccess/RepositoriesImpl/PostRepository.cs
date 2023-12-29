@@ -27,6 +27,7 @@ public class PostRepository: IPostRepository
 
         cmd.CommandType = CommandType.StoredProcedure;
         cmd.Parameters.AddWithValue("@title", post.Title);
+        cmd.Parameters.AddWithValue("@image_src", post.ImageSrc);
         cmd.Parameters.AddWithValue("@meta_description", post.MetaDescription);
         cmd.Parameters.AddWithValue("@sub_category_id", 1);
         cmd.Parameters.AddWithValue("@body", post.Body);
@@ -67,6 +68,7 @@ public class PostRepository: IPostRepository
                 {
                     Id = Convert.ToInt32(reader["id"]),
                     Title = Convert.ToString(reader["title"])!,
+                    ImageSrc = Convert.ToString(reader["image_src"]),
                     SubCategoryId = Convert.ToInt32(reader["sub_category_id"]),
                     SubCategoryName = Convert.ToString(reader["sub_category_name"]),
                     Body = Convert.ToString(reader["body"])!,
