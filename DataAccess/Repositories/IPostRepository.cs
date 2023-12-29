@@ -12,4 +12,6 @@ public interface IPostRepository
     public Task UpdatePostStatus(int postId, bool status, int approvedById);
     public Task<int> GetTotalCountOfPosts();
 
+    public Task<Response<PostDto>> GetPost(int postId);
+
 }
