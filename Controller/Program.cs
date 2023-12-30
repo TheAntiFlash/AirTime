@@ -47,12 +47,12 @@ if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
-    /*app.Use(async (context, next) =>
+    app.Use(async (context, next) =>
     {
         context.Request.Headers.Add("XAPIKEY", "6a94d344-b268-441a-8d99-5e5f5665f0b1");
 
         await next();
-    });*/
+    });
 }
 app.UseHttpsRedirection();
 

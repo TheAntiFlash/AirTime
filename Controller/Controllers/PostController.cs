@@ -40,7 +40,7 @@ public class PostController : ControllerBase
         try
         {
             var posts = await _postService.GetAllPostsForUser(userId, postsOffset, pageSize);
-            return Ok(posts);
+             return Ok(posts);
 
         }
         catch (Exception e)

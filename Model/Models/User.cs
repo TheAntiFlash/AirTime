@@ -10,7 +10,7 @@ public class User
     public string FirstName { get; set; } = string.Empty;
     public string LastName { get; set; } = string.Empty;
     public string Role { get; set; } = string.Empty;
-    public int? MobileNumber { get; set; }
+    public string? MobileNumber { get; set; }
     public DateOnly? DoB { get; set; }
     public DateTime? LastLogin { get; set; }
     public bool? Gender { get; set; }
