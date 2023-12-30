@@ -16,7 +16,7 @@ namespace Controller.Controllers
         public IActionResult SendEmail(OTPDto otpdto)
         {
             var email = new MimeMessage();
-            email.From.Add(MailboxAddress.Parse("areeshali007@gmail.com"));//sender email
+            email.From.Add(MailboxAddress.Parse("_SenderEmail"));//sender email
             email.To.Add(MailboxAddress.Parse(otpdto.Email));
 
             email.Subject = "OTP for Airtime.pk for Registration";
@@ -28,9 +28,9 @@ namespace Controller.Controllers
 
             using var smtpClient = new SmtpClient();
 
-            smtpClient.Connect("smtp.gmail.com", 587 , SecureSocketOptions.StartTls);
+            smtpClient.Connect("smtp.gmail.com", 587 , SecureSocketOptions.StartTls); //Google SMTP Configured
 
-            smtpClient.Authenticate("areeshali007@gmail.com", "Dell_e6430");
+            smtpClient.Authenticate("_Email", "_Password");
 
             smtpClient.Send(email);
 

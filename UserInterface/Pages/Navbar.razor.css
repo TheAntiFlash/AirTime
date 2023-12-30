@@ -14,6 +14,7 @@ body {
 nav {
     height: 80px;
     background: #2c3e50;
+    width: 100%;
 }
 
     nav img {

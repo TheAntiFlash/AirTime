@@ -1,7 +1,11 @@
-﻿@page "/home"
+﻿@inject HttpClient httpclient
+@using Model.Models
+@using Model.DTOs
+
+@page "/home"
 @attribute [Authorize(policy: "RequireAuthenticatedUser")]
 @layout MainLayout
-
+<Navbar ShowNavBar="showNavbar"/>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -12,61 +16,71 @@
     <title>HomeCard</title>
 </head>
 <body>
-  <div class="header-Details">
-    <h2>Learn What's Best</h2>
-    <p>"Educate & Elevate: Navigating the Path to Enlightenment.”
-    </p>
-    <hr>
-  </div>
+ 
+<div class="header-Details">
+  <h2>Learn What's Best</h2>
+  <p>"Educate & Elevate: Navigating the Path to Enlightenment.”
+  </p>
+  <hr>
+</div>
 
 
-  <div class="blog-topic">
-    <h3>Blog Topics</h3>
-    <ul>
-      <li><a href="">Artificial Intelligence</a></li>
-      <li><a href="">Machine Learning</a></li>
-      <li><a href="">Neural Networks</a></li>
-      <li><a href="">Hospitality and Tourism</a></li>
-      <li><a href="">Engineering</a></li>
-      
+<div class="blog-topic">
+  <h3>Blog Topics</h3>
+  <ul>
+    <li><a href="">Artificial Intelligence</a></li>
+    <li><a href="">Machine Learning</a></li>
+    <li><a href="">Neural Networks</a></li>
+    <li><a href="">Hospitality and Tourism</a></li>
+    <li><a href="">Engineering</a></li>
 
-    </ul> <!-- blog-topic -->
-  </div>  <!-- blog-topic -->
-  <div class="tag-line">
-    <button type="button" class="btn btn-outline-primary">AI</button>
-    <button type="button" class="btn btn-outline-primary">Machine Learning</button>
-    <button type="button" class="btn btn-outline-primary">Neural Networks</button>
-  </div>  <!-- tag-line -->
-    <div class="card-section">
-      <a href="">
-      <div class="card mb-3" style="max-width: 900px;">
-        <div class="row g-0">
-          <div class="col-md-4">
-            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRebeIoR84C98bpu9PvPTAqFsnpdS4yDr07rQ&usqp=CAU" class="img-fluid rounded-start" alt="...">
-          </div> <!-- col-md-4 -->
-          <div class="col-md-8">
-            <div class="card-body">
-              <h5 class="card-title">Card title</h5>
-              <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-              <p class="card-text"><small class="text-body-secondary">Last updated 3 mins ago</small></p>
-            </div> <!-- card-body -->
-          </div> <!-- col-md-8 -->
-        </div>  <!-- row -->
-      </div> <!-- card -->
-    </a> <!-- action button-->
-    </div> <!-- card-section -->
+
+  </ul> <!-- blog-topic -->
+</div> <!-- blog-topic -->
+<div class="tag-line">
+  <button type="button" class="btn btn-outline-primary">AI</button>
+  <button type="button" class="btn btn-outline-primary">Machine Learning</button>
+  <button type="button" class="btn btn-outline-primary">Neural Networks</button>
+</div> <!-- tag-line -->
+<!--This is the card which will show the data-->
+        <div class="card-section">
+          <a href="">
+            <div class="card mb-3" style="max-width: 900px;">
+              <div class="row g-0">
+                <div class="col-md-4">
+                  <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRebeIoR84C98bpu9PvPTAqFsnpdS4yDr07rQ&usqp=CAU" class="img-fluid rounded-start" alt="...">
+                </div> <!-- col-md-4 -->
+                <div class="col-md-8">
+                  <div class="card-body">
+                    <h5 class="card-title">Card title</h5>
+                    <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                    <p class="card-text"><small class="text-body-secondary">Last updated 3 mins ago</small></p>
+                  </div> <!-- card-body -->
+                </div> <!-- col-md-8 -->
+              </div> <!-- row -->
+            </div> <!-- card -->
+          </a> <!-- action button-->
+        </div> <!-- card-section -->
 </body>
 </html>
 
 
 
 @code {
-    private bool showNavbar = true;
+  private bool showNavbar = true;
+  List<PostDto> posts = new List<PostDto>();
+  private static int pageNumber;
 
-    protected override Task OnAfterRenderAsync(bool firstRender)
-    {
-        
-        return base.OnAfterRenderAsync(firstRender);
-    }
+  private static int pageOffset;
+
+  string? api_URL = $"http://localhost:5004/api/post/{pageNumber.ToString()}/{pageOffset.ToString()}";
+
+  protected override async void OnInitialized()
+  {
+    base.OnInitialized();
+    posts = await httpclient.GetFromJsonAsync<List<PostDto>>(api_URL);
+    this.StateHasChanged();
+  }
+
 
 }

@@ -12,6 +12,9 @@
 
 @if (user != null)
 {
+    <div class="heading-admin-panel">
+        <h1>Admin-Panel</h1>
+    </div>
     <table class="user-table">
         <thead>
             <tr>
@@ -66,7 +69,7 @@ else
     {
         base.OnInitialized();
         user = await http.GetFromJsonAsync<List<User>>(apiUrl);
-        
+        this.StateHasChanged();
         
     }
 }

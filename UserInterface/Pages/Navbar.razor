@@ -4,6 +4,7 @@
 @inject ILoginService logout
 @using UserInterface.Data.Authentication
 @using Model.Models
+@inject IJSRuntime JsRuntime
 
 
 @if(ShowNavBar)
@@ -49,4 +50,22 @@
         nm.NavigateTo("/", true);
         Console.WriteLine("pressed");
     }
+    
+    // private async Task ShowConfirmation()
+    // {
+    //     bool result = await JSRuntime.InvokeAsync<bool>("confirm", new object?[][]);
+    //
+    //     if (result)
+    //     {
+    //         // User clicked "OK"
+    //         // Perform the action you want to take on confirmation
+    //         // For example, navigate to another page or execute some logic
+    //     }
+    //     else
+    //     {
+    //         // User clicked "Cancel" or closed the dialog
+    //         // Handle the cancellation or take appropriate action
+    //     }
+    // }
+    
 }
