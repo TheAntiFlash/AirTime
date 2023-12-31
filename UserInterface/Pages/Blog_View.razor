@@ -1,4 +1,4 @@
-﻿
+﻿@using Ganss.Xss
 
 
 <html lang="en">
@@ -24,15 +24,9 @@
 
 
         </div>
-        <h3 class="blog-body">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed tincidunt mi non purus semper varius. Nunc mattis arcu quis molestie facilisis. Suspendisse sed posuere odio. Cras augue quam, viverra et facilisis in, pellentesque eget nibh. Nunc et velit id arcu pretium interdum. Nulla a euismod tellus. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.
-
-            Interdum et malesuada fames ac ante ipsum primis in faucibus. Nunc pharetra dui non mattis euismod. Mauris quis porttitor dui. Integer sagittis, lacus eu facilisis sollicitudin, justo lacus bibendum ipsum, eget blandit risus dolor ac metus. Phasellus ut mollis dui, a lacinia urna. Vivamus venenatis in diam vel volutpat. Praesent velit purus, interdum at interdum ut, accumsan ut risus. Vivamus quis commodo orci, non vehicula ante. Donec in nisi lorem. Nam vitae ultrices augue. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras sit amet purus pharetra, ultrices metus eget, suscipit metus. Nam nec nibh sed mauris pellentesque ornare et non mi. Donec malesuada erat et risus ultricies vestibulum.
-
-            Praesent lobortis non tellus at accumsan. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Nunc pharetra leo vel dapibus tempus. Vivamus euismod sollicitudin mi, et fringilla arcu bibendum a. Fusce commodo feugiat massa, sed aliquam nulla accumsan ac. In sed felis ac ex venenatis auctor. In sed odio sed urna convallis elementum id eget orci. Fusce sit amet purus ac libero vestibulum imperdiet. Nam tincidunt tortor vel arcu sollicitudin varius. Fusce maximus, urna ac elementum tempus, purus sapien lobortis est, sit amet vulputate ligula erat euismod lectus.
-
-            Praesent eget diam ut augue vestibulum aliquet et sed eros. Duis sollicitudin libero sit amet augue semper ullamcorper. Donec congue, tellus non pharetra porttitor, augue ex blandit purus, rutrum ornare risus enim at neque. Donec eu ex et est pharetra egestas. Nunc ac tristique justo, quis dapibus est. Fusce vel blandit felis, eget vulputate ligula. Quisque metus mauris, pretium quis dolor in, pharetra consectetur ipsum. Praesent pellentesque bibendum porta. Phasellus semper mollis sapien, molestie mattis nulla pulvinar id. Mauris pretium, nulla eget rhoncus commodo, nisl risus rutrum felis, id semper ex neque a nibh. Suspendisse ut ipsum at nunc gravida luctus. Praesent vehicula pellentesque arcu interdum auctor. Quisque sem magna, ultrices quis nibh a, aliquet scelerisque nisl. Phasellus non enim a libero ornare ullamcorper id id nulla. Integer quis est maximus, tincidunt tellus vitae, porta elit.
-        </h3>
+        <div >
+            @((MarkupString)htmlcontent)
+            </div>
     </div>
 
     <div class="comment-session">
@@ -78,3 +72,9 @@
 
 </body>
 </html>
+
+@code{
+    private string htmlcontent = "<p>Welcome to my blog post about HTML blogging. In this article, I'll share some insights into creating simple yet effective blogs using HTML. HTML (HyperText Markup Language) is the standard language for creating web pages and web applications. While there are more advanced platforms and content management systems for blogging, understanding the basics of HTML can be empowering.</p><h1>HTML provides a straightforward way to structure content on the web. Let's explore a basic HTML structure for a blog post:</h1>";
+
+   
+}

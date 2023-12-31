@@ -16,6 +16,7 @@
       <None Remove="Pages\Navbar.razor.css" />
       <None Remove="Pages\OTP_View.razor.css" />
       <None Remove="Pages\ReusableComponents\Footer.razor.css" />
+      <None Remove="Pages\WriteBlog.razor.css" />
     </ItemGroup>
 
     <ItemGroup>
@@ -24,9 +25,12 @@
       <Content Include="Pages\Navbar.razor.css" />
       <Content Include="Pages\OTP_View.razor.css" />
       <Content Include="Pages\ReusableComponents\Footer.razor.css" />
+      <Content Include="Pages\WriteBlog.razor.css" />
     </ItemGroup>
 
     <ItemGroup>
+      <PackageReference Include="FirebaseStorage.net" Version="1.0.3" />
+      <PackageReference Include="HtmlSanitizer" Version="8.0.811" />
       <PackageReference Include="Microsoft.AspNetCore.Components" Version="7.0.12" />
       <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="8.0.0" />
       <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="8.0.0" />

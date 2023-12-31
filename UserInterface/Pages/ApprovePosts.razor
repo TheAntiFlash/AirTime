@@ -1,5 +1,6 @@
 ﻿@page "/approve-post"
 @using Model.Models
+@using Model.DTOs
 @using System.Net.Http
 @using System.Net.Http.Json
 
@@ -47,5 +48,8 @@
 
 @code {
     private bool showNavBar = true;
+    List<PostForApprovalDto>? posts = new List<PostForApprovalDto>();
+    private string apiURL = "";
+
 
 }
