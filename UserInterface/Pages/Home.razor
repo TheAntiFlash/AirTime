@@ -1,4 +1,11 @@
 ﻿@page "/home"
+@using Model.DTOs
+@using Microsoft.AspNetCore.Components.Server.ProtectedBrowserStorage
+@using Microsoft.IdentityModel.Tokens
+@using Model.Models
+@inject HttpClient Http;
+@inject ProtectedSessionStorage Session;
+@inject NavigationManager Nm;
 @attribute [Authorize(policy: "RequireAuthenticatedUser")]
 @layout MainLayout
 
@@ -38,36 +45,68 @@
     <button type="button" class="btn btn-outline-primary">Machine Learning</button>
     <button type="button" class="btn btn-outline-primary">Neural Networks</button>
   </div>  <!-- tag-line -->
-    <div class="card-section">
+<div class="card-section">
+  @if (!_posts.IsNullOrEmpty())
+  {
+    @foreach (var post in _posts)
+    {
       <a href="">
-      <div class="card mb-3" style="max-width: 900px;">
-        <div class="row g-0">
-          <div class="col-md-4">
-            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRebeIoR84C98bpu9PvPTAqFsnpdS4yDr07rQ&usqp=CAU" class="img-fluid rounded-start" alt="...">
-          </div> <!-- col-md-4 -->
-          <div class="col-md-8">
-            <div class="card-body">
-              <h5 class="card-title">Card title</h5>
-              <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-              <p class="card-text"><small class="text-body-secondary">Last updated 3 mins ago</small></p>
-            </div> <!-- card-body -->
-          </div> <!-- col-md-8 -->
-        </div>  <!-- row -->
-      </div> <!-- card -->
-    </a> <!-- action button-->
-    </div> <!-- card-section -->
+        <div class="card mb-3" style="max-width: 900px;">
+          <div class="row g-0">
+            <div class="col-md-4">
+              <img class="img-fluid rounded-start" alt="..." src="@(post.ImageSrc?.ToString())">
+            </div> <!-- col-md-4 -->
+            <div class="col-md-8">
+              <div class="card-body">
+                <h5 class="card-title">@(post.Title)</h5>
+                <p class="card-text">@(post.MetaDescription)</p>
+                <p class="card-text"><small class="text-body-secondary">@(post.PostApprovalTime?.ToString("dd-MMMM"))</small></p>
+              </div> <!-- card-body -->
+            </div> <!-- col-md-8 -->
+          </div> <!-- row -->
+        </div> <!-- card -->
+      </a> <!-- action button-->
+    }
+  }
+  else {
+  <h1>
+    No Posts
+  </h1>
+  }
+</div> <!-- card-section -->
 </body>
 </html>
 
 
 
 @code {
-    private bool showNavbar = true;
+  private bool showNavbar = true;
+  private List<PostDto>? _posts = new();
 
-    protected override Task OnAfterRenderAsync(bool firstRender)
+  protected override async Task OnInitializedAsync()
+  {
+    var userSessionStorageResult = await Session.GetAsync<UserSession>("UserSession");
+    UserSession userSession = new();
+    if (userSessionStorageResult.Success)
     {
-        
-        return base.OnAfterRenderAsync(firstRender);
+      userSession = userSessionStorageResult.Value;
     }
+    else {
+      Console.WriteLine("Session not found");
+      Nm.NavigateTo("/");
+      
+    }
+   // Console.WriteLine($"{userSession?.UserId}");
+    _posts = await Http.GetFromJsonAsync<List<PostDto>>($"api/post/{0}/{20}??userId={userSession!.UserId}");
+    //Console.WriteLine(_posts?.ToString());
+    if (_posts != null)
+      foreach (var post in _posts)
+      {
+        post.ImageSrc ??= "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRebeIoR84C98bpu9PvPTAqFsnpdS4yDr07rQ&usqp=CAU";
+      }
+
+    StateHasChanged();
+    await base.OnInitializedAsync();
+  }
 
 }
