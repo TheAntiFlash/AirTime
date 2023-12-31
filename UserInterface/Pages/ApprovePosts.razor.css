@@ -6,7 +6,7 @@
     width: 100%;
     height: fit-content;
     position: fixed;
-    top: 10%;
+    top: 15%;
 }
 
 h2 {
@@ -18,7 +18,7 @@ h2 {
     font-size: 20px;
     font-weight: 600;
     position: fixed;
-    top: 23%;
+    top: 25%;
 }
 
 .card-container {
