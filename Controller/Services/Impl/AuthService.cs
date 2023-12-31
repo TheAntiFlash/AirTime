@@ -68,6 +68,7 @@ public class AuthService : IAuthService
         //var token = CreateToken(user);
         UserSession userSession = new()
         {
+            UserId = user.Id,
             Username = user.Username,
             Email = user.Email,
             FirstName = user.FirstName,
