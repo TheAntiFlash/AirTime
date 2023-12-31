@@ -1,7 +1,16 @@
 ﻿
 @using Ganss.Xss
-
-
+@using Model.DTOs
+@using System.Text.Json
+@using System.Text
+@using AngleSharp.Text
+@using Microsoft.AspNetCore.Components.Server.ProtectedBrowserStorage
+@using Microsoft.IdentityModel.Tokens
+@using Model.Models
+@page "/post/{PostId}"
+@inject ProtectedSessionStorage Session;
+@inject NavigationManager Nm
+@inject HttpClient HttpClient
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -15,18 +24,14 @@
     <img src="https://www.ryrob.com/wp-content/uploads/2019/07/History-of-Blogging-Journey-Description-Infographic-Optimized.jpg" alt="titleimage">
 
     <div class="blog-text">
-        <h1 class="heading">Learn the hidden feature in Git - Stash</h1>
+        <h1 class="heading">@_post.Title</h1>
         <div class="editor-detail">
 
-            <p class="Author">Author: JohnDoe</p>
-
-
-
-
+            <p class="Author">Author: @_post.AuthorName</p>
 
         </div>
         <div >
-            @((MarkupString)htmlcontent)
+            @((MarkupString)_post.Body)
             </div>
     </div>
 
@@ -34,37 +39,46 @@
         <h1>Comments:</h1>
         <div class="post-comment">
             <div class="comment-list">
-                <div class="flex">
-                    <div class="user">
-
-                        <div class="user-meta">
-                            <div class="name">
-                                Panadol
-                            </div>
-
-                            <div class="day">
-                                panadol@gmail.com
-                            </div>
-
-                        </div> <!-- user-meta -->
-                    </div> <!-- user -->
-                    <!-- comment -->
-                </div> <!-- flex -->
-                <div class="comment">
-                    So much knowledge in a single video. I was so much stuck on stash. I was  using tfs shelveset. Wasnt able to find better learning on equivalent. Thanks a lot for making things so easy.
-                </div>
+                @if (!_comments.IsNullOrEmpty())
+                {
+                    @foreach (var comment in _comments)
+                    {
+                        <div class="flex">
+                            <div class="user">
+                                <div class="user-meta">
+                                    <div class="name">
+                                        @comment.Username
+                                    </div>
+                                </div> <!-- user-meta -->
+                            </div> <!-- user -->
+                            <!-- comment -->
+                        </div> <!-- flex -->
+                        <div class="comment">
+                            @comment.Content
+                        </div>
+                        <div class="likes">
+                            <button @onclick="()=> LikeComment(comment.Id)">Like</button>
+                            <span>@comment.Likes</span> likes
+                        </div>
+                    }
+                }
+                else
+                {
+                    <h3>Begin the discussion!</h3>
+                }
+                
             </div> <!-- comment-list -->
             <form action="" class="comment-box">
                 <div class="user">
                     <div class="name">
-                        Panadol
+                        @_username
                     </div>
                     <!-- <div class="day">
                       panadol@gmail.com
                     </div> -->
                 </div>
-                <textarea name="comment" id="" cols="30" rows="10"></textarea>
-                <button class="comment-submit">Submit</button>
+                <textarea @bind="_newComment.Content" name="comment" id="" cols="30" rows="10"></textarea>
+                <button @onclick="AddComment" class="comment-submit">Submit</button>
             </form>
         </div>
         <!-- post-comment -->
@@ -75,8 +89,113 @@
 </html>
 
 @code{
-    private string htmlcontent = "<p>Welcome to my blog post about HTML blogging. In this article, I'll share some insights into creating simple yet effective blogs using HTML. HTML (HyperText Markup Language) is the standard language for creating web pages and web applications. While there are more advanced platforms and content management systems for blogging, understanding the basics of HTML can be empowering.</p><h1>HTML provides a straightforward way to structure content on the web. Let's explore a basic HTML structure for a blog post:</h1>";
+    [Parameter] public string PostId { get; set; }
+    private List<CommentDto> _comments = new();
+    private PostDto _post = new();
+    private CommentDto _newComment = new CommentDto();
+    private int _userId = -1;
+    private string _username;
+    protected override void OnParametersSet()
+    {
+        base.OnParametersSet();
 
-    public string PostID { get; set; }
+        if (PostId is null)
+        {
+            Nm.NavigateTo("/");
+        }
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        var userSessionStorageResult = await Session.GetAsync<UserSession>("UserSession");
+        UserSession userSession = new();
+        if (userSessionStorageResult.Success)
+        {
+            userSession = userSessionStorageResult.Value;
+            _userId = userSession!.UserId;
+            _username = userSession.Username;
+        }
+        else {
+            Console.WriteLine("Session not found");
+            Nm.NavigateTo("/");
+        }
+        
+        try
+        {
+            _post = await HttpClient.GetFromJsonAsync<PostDto>($"api/post/{PostId}") ?? throw new InvalidOperationException("Post Not Found");
+            _comments = await HttpClient.GetFromJsonAsync<List<CommentDto>>($"api/post/{PostId}/comment")?? throw new Exception("something went wrong");
+            StateHasChanged();
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            Nm.NavigateTo("/home");
+        }
+        await base.OnAfterRenderAsync(firstRender);
+    }
+
+    private async Task AddComment()
+    {
+        if (!_newComment.Content.IsNullOrEmpty())
+        {
+            _newComment.UserId = _userId;
+            _newComment.PostId = Convert.ToInt32(PostId);
+            var jsonContent = JsonSerializer.Serialize(_newComment);
+            StringContent content = new(jsonContent, Encoding.UTF8, "application/json");
+            var response = await HttpClient.PostAsync($"api/post/{PostId}/comment", content);
+            if (response.IsSuccessStatusCode)
+            {
+                string responseContent = await response.Content.ReadAsStringAsync();
+                Console.WriteLine("POST Request was Successful with 200 , RESPONSE: " + responseContent);
+                //StateHasChanged();
+            }
+            else
+            {
+                Console.WriteLine("POST req Failed, Error / Status Code: " + response.StatusCode);
+                string responseContent = await response.Content.ReadAsStringAsync();
+                Console.WriteLine(responseContent);
+            }
+        }
+    }
+
+    public async Task LikeComment(int? commentId)
+    {
+        var req = new CommentLikeDto
+        {
+            CommentId = commentId??0,
+            UserId = _userId
+        };
+        var jsonContent = JsonSerializer.Serialize(req);
+        StringContent content = new(jsonContent, Encoding.UTF8, "application/json");
+
+        var response = await HttpClient.PostAsync($"api/post/comment/like", content);
+        if (response.IsSuccessStatusCode)
+        {
+            string responseContent = await response.Content.ReadAsStringAsync();
+            Console.WriteLine("POST Request was Successful with 200 , RESPONSE: " + responseContent);
+        }
+        else
+        {
+            Console.WriteLine("POST req Failed, Error / Status Code: " + response.StatusCode);
+            string responseContent = await response.Content.ReadAsStringAsync();
+            Console.WriteLine(responseContent);
+            
+            var deleteResponse = await HttpClient.DeleteAsync($"api/post/comment/{req.CommentId}/like/{req.UserId}");
+            if (deleteResponse.IsSuccessStatusCode)
+            {
+                string deleteContent = await deleteResponse.Content.ReadAsStringAsync();
+                Console.WriteLine("POST Request was Successful with 200 , RESPONSE: " + deleteContent);
+            }
+            else
+            {
+                Console.WriteLine("POST req Failed, Error / Status Code: " + response.StatusCode);
+                string deleteContent = await response.Content.ReadAsStringAsync();
+                Console.WriteLine(deleteContent);
+            }
+        }
+    } 
+
+    //private string htmlcontent = "<p>Welcome to my blog post about HTML blogging. In this article, I'll share some insights into creating simple yet effective blogs using HTML. HTML (HyperText Markup Language) is the standard language for creating web pages and web applications. While there are more advanced platforms and content management systems for blogging, understanding the basics of HTML can be empowering.</p><h1>HTML provides a straightforward way to structure content on the web. Let's explore a basic HTML structure for a blog post:</h1>";
+    
 
 }

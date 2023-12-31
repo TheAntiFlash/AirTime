@@ -50,7 +50,7 @@
   {
     @foreach (var post in _posts)
     {
-      <a href="">
+      <a href=@($"post/{post.Id}")>
         <div class="card mb-3" style="max-width: 900px;">
           <div class="row g-0">
             <div class="col-md-4">
