@@ -1,4 +1,5 @@
-﻿@using Ganss.Xss
+﻿
+@using Ganss.Xss
 
 
 <html lang="en">
@@ -76,5 +77,6 @@
 @code{
     private string htmlcontent = "<p>Welcome to my blog post about HTML blogging. In this article, I'll share some insights into creating simple yet effective blogs using HTML. HTML (HyperText Markup Language) is the standard language for creating web pages and web applications. While there are more advanced platforms and content management systems for blogging, understanding the basics of HTML can be empowering.</p><h1>HTML provides a straightforward way to structure content on the web. Let's explore a basic HTML structure for a blog post:</h1>";
 
-   
+    public string PostID { get; set; }
+
 }
