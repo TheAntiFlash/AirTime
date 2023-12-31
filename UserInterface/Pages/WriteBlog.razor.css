@@ -1,0 +1,46 @@
+﻿    .editor-container {
+                display: flex;
+                flex-direction: column;
+                margin: 10px;
+                padding: 10px;
+            }
+
+           
+            .input-container {
+                background-color: #f9f9f9;
+                padding: 10px;
+                border-radius: 10px;
+                display: flex;
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .input-text {
+                text-align: center;
+                font-family: "Vollkorn", serif;
+                font-weight: bold;
+                padding-top: 60px;
+            }
+
+
+            #editor {
+                height: 300px; /* Set an appropriate height for your editor */
+                border: 1px solid #ccc;
+                border-radius: 5px;
+                padding: 5px;
+            }
+
+            .buttons-container {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+            }
+
+            .publish-button,
+            .discard-button {
+                flex : 1;
+                margin: 0px 100px;
+                
+                width: 20px;
+            }
+

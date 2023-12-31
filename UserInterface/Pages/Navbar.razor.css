@@ -12,7 +12,7 @@ body {
 }
 
 nav {
-    height: 80px;
+    height: 100px;
     background: #2c3e50;
 }
 
@@ -30,7 +30,7 @@ nav {
 
         nav ul li {
             display: inline-block;
-            line-height: 80px;
+            line-height: 20px;
             margin: 0 15px;
         }
 

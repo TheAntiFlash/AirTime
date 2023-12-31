@@ -9,8 +9,13 @@
 <PageTitle>Admin Panel</PageTitle>
 
 <!DOCTYPE html>
+<Navbar ShowNavBar= "showNavBar"/>
+<div>
+   <h6>AdminPanel</h6>
+</div>
 
 @if (user != null)
+
 {
     <table class="user-table">
         <thead>
@@ -66,7 +71,7 @@ else
     {
         base.OnInitialized();
         user = await http.GetFromJsonAsync<List<User>>(apiUrl);
-        
-        
+        this.StateHasChanged();
+
     }
 }
