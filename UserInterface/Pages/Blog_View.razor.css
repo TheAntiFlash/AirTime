@@ -1,4 +1,4 @@
-﻿body{
+﻿body {
     display: block;
     margin: 0;
     padding: 0;
@@ -6,11 +6,11 @@
     font-size: 16px;
     background: #f8fcfd;
     margin-top: 10px;
-    
+
 }
 
 
-img{
+img {
     padding-top: 7%;
     display: block;
     margin-left: auto;
@@ -18,9 +18,10 @@ img{
     width: 844px;
     height: 300px;
     width: 70%;
-  
+
 }
-.blog-text{
+
+.blog-text {
     /* padding-top: 10px; */
     display: block;
     margin-left: auto;
@@ -29,19 +30,20 @@ img{
 }
 
 
-.heading{
-    
+.heading {
+
     display: flex;
-    
+
     color: #000;
     text-align: right;
     font-family: Segoe UI;
     font-size: 48px;
     font-style: normal;
     font-weight: 700;
-   
+
 }
-.editor-detail{
+
+.editor-detail {
     color: black;
     font-family: Segoe UI;
     font-size: 24px;
@@ -51,11 +53,11 @@ img{
     display: inline-block;
 }
 
-.Author .AuthorName{
+.Author .AuthorName {
     display: inline;
 }
 
-.blog-body{
+.blog-body {
     color: #000;
     text-align: justify;
     /* pt serif */
@@ -66,39 +68,42 @@ img{
     line-height: 27px;
 }
 
-*{
+* {
     box-sizing: border-box;
 }
 
-.flex{
+.flex {
     display: flex;
     justify-content: space-around;
     width: 100%;
 }
-.comment-box, .comment-list{
+
+.comment-box, .comment-list {
     background: #fff;
     border-radius: 4px;
     box-shadow: 0 4px 4px #0002;
 
 }
 
-.comment-session{
+.comment-session {
     width: 650px;
     height: auto;
-    margin: auto;   
+    margin: auto;
 }
-.comment-list{
+
+.comment-list {
     width: 100%;
     margin-bottom: 10px;
     margin-right: 10px;
 
 }
-.comment-list .user{
+
+.comment-list .user {
     display: flex;
     padding: 8px;
     overflow: hidden;
     text-align: left;
-  
+
 }
 
 /* .comment-list .user img{
@@ -107,44 +112,51 @@ img{
     border-radius: 50%;
     margin-right: 10px;
 } */
-.comment-list .name{
+.comment-list .name {
     text-transform: uppercase;
     font-weight: 600;
     text-align: left;
     padding-right: 525px;
-    
+
 }
-.comment-list .day{
+
+.comment-list .day {
     font-size: 12px;
 
 }
-.post-comment .comment{
+
+.post-comment .comment {
     padding: 0 0 15px 58px;
     font-size: 14px;
     background-color: #cae4f5;
-   
+
 }
-.comment-box{
+
+.comment-box {
     padding: 10px;
 }
-.comment-box .user{
+
+.comment-box .user {
     display: flex;
     width: min-content;
 }
-.comment-box .image img{
+
+.comment-box .image img {
     width: 24px;
     height: 24px;
     margin-right: 10px;
     border-radius: 50%;
 }
-.comment-box .name{
+
+.comment-box .name {
     font-weight: 600;
     text-transform: uppercase;
     padding-left: 10px;
 }
-.comment-box textarea{
+
+.comment-box textarea {
     background: #eee;
-    width: -webkit-fill-available;
+    width:auto;
     height: 100px;
     margin: 10px 0;
     padding: 10px;
@@ -153,19 +165,39 @@ img{
     box-shadow: 0 0 0 0.5px #0003;
 
 }
-.comment-box textarea:focus{
+
+.comment-box textarea:focus {
     outline-color: #009cff;
 
 }
-.comment-box .comment-submit{
+
+.comment-box .comment-submit {
 
     padding: 6px 50px;
     border: none;
     background: #009cff;
     color: #fff;
     cursor: pointer;
-    border-radius: 2;
+    border-radius: 2px;
 }
-.comment-box .comment-submit:hover{
+
+.comment-box .comment-submit:hover {
     background: #027ecc;
+}
+
+.likes {
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.likes button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 5px 10px;
+    border: none;
+    cursor: pointer;
+    margin-right: 5px;
+    border-radius: 4px;
 }

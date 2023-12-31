@@ -159,9 +159,10 @@ public class PostController : ControllerBase
      * Delete a like on a comment. Pass the id of the comment to unlike and the id of the user unliking the comment.
      */
     [HttpDelete]
-    [Route("comment/like")]
-    public async Task<IActionResult> UnlikeComment([FromBody] CommentLikeDto req)
+    [Route("comment/{commentId:int}/like/{userId:Int}")]
+    public async Task<IActionResult> UnlikeComment(int userId, int commentId)
     {
+        var req = new CommentLikeDto { CommentId = commentId, UserId = userId };
         var response = await _postService.DeleteCommentLike(req);
         return response switch
         {   
