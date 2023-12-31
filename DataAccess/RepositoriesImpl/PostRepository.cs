@@ -98,8 +98,8 @@ public class PostRepository: IPostRepository
             posts.Add(
                 new PostForApprovalDto()
                 {
-                    Postid = Convert.ToInt32(reader["id"]),
-                    PostBody = Convert.ToString(reader["body"])!,
+                    PostId = Convert.ToInt32(reader["id"]),
+                    PostBody = Convert.ToString(reader["meta_desc"])!,
                     AuthorName = Convert.ToString(reader["username"])!,
                 }
             );
