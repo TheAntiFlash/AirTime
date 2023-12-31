@@ -40,7 +40,7 @@ public class PostController : ControllerBase
         try
         {
             var posts = await _postService.GetAllPostsForUser(userId, postsOffset, pageSize);
-            return Ok(posts);
+             return Ok(posts);
 
         }
         catch (Exception e)
@@ -62,6 +62,7 @@ public class PostController : ControllerBase
     [Route("approval/{postId:int}/{isApproved:bool}")]
     public async Task<IActionResult> ApprovePost(int postId, bool isApproved, int approvedById)
     {
+        Console.WriteLine($"postID : {postId} / approved: {isApproved} / userID: {approvedById}");
         await _postService.ChangePostStatus(postId, isApproved, approvedById);
         return Ok();
     }
@@ -104,4 +105,70 @@ public class PostController : ControllerBase
             _ => Problem("Something Went Wrong", statusCode: 500)
         };
     }
+    
+    /**
+     * <summary>
+     *Get all comments for post of id postId
+     * </summary>
+     * <param name="postId">Id of post whose comments to fetch</param>
+     */
+    [HttpGet]
+    [Route("{postId:int}/comment")]
+    public async Task<IActionResult> GetComments(int postId)
+    {
+        var response = await _postService.GetCommentsForPost(postId);
+        return response switch
+        {
+            Response<List<CommentDto>>.Success success => Ok(success.Data),
+            Response<List<CommentDto>>.Failure failure => Problem($"Something Went Wrong {failure.E.Message}", statusCode: 500),
+            _ => Problem("Something Went Wrong", statusCode: 500)
+        };
+    }
+    
+    
+    [HttpPost]
+    [Route("{postId:int}/comment")]
+    public async Task<IActionResult> AddComment([FromBody] CommentDto req, int postId)
+    {
+        var response = await _postService.AddComment(req);
+        return response switch
+        {   
+            Response<bool>.Success success => Accepted("Comment Added Successfully"),
+            Response<bool>.Failure failure => Problem($"Something Went Wrong {failure.E.Message}", statusCode: 500),
+            _ => Problem("Something Went Wrong", statusCode: 500)
+        };
+    }
+
+    /**
+     * Add a Like to a comment. pass the id of the comment to like and the id of the user liking the comment.
+     */
+    [HttpPost]
+    [Route("comment/like")]
+    public async Task<IActionResult> LikeComment([FromBody] CommentLikeDto req)
+    {
+        var response = await _postService.AddCommentLike(req);
+        return response switch
+        {   
+            Response<bool>.Success success => Accepted("Like Added Successfully"),
+            Response<bool>.Failure failure => Problem($"Something Went Wrong {failure.E.Message}", statusCode: 500),
+            _ => Problem("Something Went Wrong", statusCode: 500)
+        };
+    }
+    
+    /**
+     * Delete a like on a comment. Pass the id of the comment to unlike and the id of the user unliking the comment.
+     */
+    [HttpDelete]
+    [Route("comment/like")]
+    public async Task<IActionResult> UnlikeComment([FromBody] CommentLikeDto req)
+    {
+        var response = await _postService.DeleteCommentLike(req);
+        return response switch
+        {   
+            Response<bool>.Success success => Accepted("Like Added Successfully"),
+            Response<bool>.Failure failure => Problem($"Something Went Wrong {failure.E.Message}", statusCode: 500),
+            _ => Problem("Something Went Wrong", statusCode: 500)
+        };
+    }
+    
 }

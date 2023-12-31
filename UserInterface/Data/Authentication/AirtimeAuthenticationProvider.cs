@@ -31,6 +31,7 @@ public class AirtimeAuthenticationProvider : AuthenticationStateProvider, ILogin
             {
                 var claimsPrincipal = new ClaimsPrincipal(new ClaimsIdentity(new List<Claim>
                 {
+                    new("UserID",userSession.UserId.ToString()),
                     new(ClaimTypes.Name, userSession.Username),
                     new(ClaimTypes.Role, userSession.Role),
                     new(ClaimTypes.Email, userSession.Email),
@@ -51,11 +52,11 @@ public class AirtimeAuthenticationProvider : AuthenticationStateProvider, ILogin
 
     public async Task Login(UserSession userSession)
     {
-        ClaimsPrincipal claimsPrincipal;
-            await _sessionStorage.SetAsync("UserSession", userSession);
-            claimsPrincipal = new ClaimsPrincipal(
+        await _sessionStorage.SetAsync("UserSession", userSession);
+            var claimsPrincipal = new ClaimsPrincipal(
                 new ClaimsIdentity(new List<Claim>
                 {
+                    new("UserID",userSession.UserId.ToString()),
                     new(ClaimTypes.Name, userSession.Username),
                     new(ClaimTypes.Role, userSession.Role),
                     new(ClaimTypes.Email, userSession.Email),
