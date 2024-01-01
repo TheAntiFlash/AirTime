@@ -27,7 +27,7 @@ public class PostRepository: IPostRepository
 
         cmd.CommandType = CommandType.StoredProcedure;
         cmd.Parameters.AddWithValue("@title", post.Title);
-        cmd.Parameters.AddWithValue("@image_src", post.ImageSrc);
+        cmd.Parameters.AddWithValue("@image_src", "");
         cmd.Parameters.AddWithValue("@meta_description", post.MetaDescription);
         cmd.Parameters.AddWithValue("@sub_category_id", 1);
         cmd.Parameters.AddWithValue("@body", post.Body);

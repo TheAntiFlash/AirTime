@@ -1,8 +1,16 @@
 ﻿@page "/writeblog"
 @using UserInterface.Pages.ReusableComponents
+@using Microsoft.AspNetCore.Components.Server.ProtectedBrowserStorage
+@using Model.Models
+@using System.Text.Json
+@using Model.DTOs
+@using System.Text
 @layout MainLayout
+@inject HttpClient http
+@inject ProtectedSessionStorage Session
+@inject NavigationManager nm
 <PageTitle>Write Blog</PageTitle>
-<NavBar ShowNavBar="showNavBar"/>
+<Navbar/>
 
 @inject IJSRuntime JSRuntime
 @inject IWebHostEnvironment e
@@ -30,12 +38,12 @@
           <form>
           <div class="form-group">
             <label for="formGroupExampleInput">Title</label>
-            <input type="text" class="form-control" id="formGroupExampleInput" placeholder="Title Of Post" required>
+            <input type="text" class="form-control" id="formGroupExampleInput" placeholder="Title Of Post" required @bind="_post.Title">
           </div>
          
           <div class="form-group">
             <label for="formGroupExampleInput">Summary</label>
-            <input type="text" class="form-control" id="formGroupExampleInput" placeholder="Summary" required>
+            <input type="text" class="form-control" id="formGroupExampleInput" placeholder="Summary" required @bind = "_post.MetaDescription">
           </div>
         </form>
         <div/>
@@ -92,7 +100,7 @@
         </div>
     </div>
     <div class="buttons-container">
-        <button class="btn btn-primary publish-button" onclick="@GetHTML">Publish</button>
+        <button class="btn btn-primary publish-button" @onclick="UploadPost">Publish</button>
         <button class="btn btn-secondary discard-button">Discard</button>
     </div>
     </body>
@@ -114,7 +122,12 @@
     private string? EditorContent;
     private string? EditorHTMLContent;
     private bool EditorEnabled = true;
-
+    //for user id and username from sessionstorage
+    private int userid = -1;
+    private string username = string.Empty;
+    
+    //for creating post
+    private PostDto _post = new ();
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         if (firstRender)
@@ -122,6 +135,21 @@
             await JSRuntime.InvokeAsync<string>(
                 "QuillFunctions.createQuill", divEditorElement);
         }
+
+        var userSessionStorageResult = await Session.GetAsync<UserSession>("UserSession");
+        UserSession userSession = new();
+        if (userSessionStorageResult.Success)
+        {
+            userSession = userSessionStorageResult.Value;
+            userid = userSession.UserId;
+            username = userSession.Username;
+        }
+        else
+        {
+            Console.WriteLine("Session : 404!");
+            nm.NavigateTo("/");
+        }
+        
     }
 
 
@@ -134,6 +162,7 @@
         EditorHTMLContent = "";
         EditorContent = await JSRuntime.InvokeAsync<string>(
             "QuillFunctions.getQuillText", divEditorElement);
+        _post.Body = EditorContent;
     }
 
     async Task GetHTML()
@@ -142,6 +171,7 @@
         EditorHTMLContent = await JSRuntime.InvokeAsync<string>(
             "QuillFunctions.getQuillHTML", divEditorElement);
         Console.WriteLine(EditorHTMLContent);
+        
     }
 
             async Task GetEditorContent()
@@ -149,6 +179,31 @@
                 EditorHTMLContent = "";
                 EditorContent = await JSRuntime.InvokeAsync<string>(
                     "QuillFunctions.getQuillContent", divEditorElement);
+                Console.WriteLine(EditorContent);
             }
+
+
+            private async Task UploadPost()
+            {
+                _post.AuthorId = userid;
+                _post.AuthorName = username;
+
+                await GetText();
+                string jsoncontent = JsonSerializer.Serialize(_post);
+                StringContent content = new(jsoncontent, Encoding.UTF8, "application/json");
+                var response = await http.PostAsync("api/post", content);
+
+                if (response.IsSuccessStatusCode)
+                {
+                    Console.WriteLine("Post sent successfully");
+                    Console.WriteLine(_post.MetaDescription);
+                    Console.WriteLine(_post.Body);
+                }
+                else
+                {
+                    Console.WriteLine("Post Failed");
+                }
+            }
+            
     }
 

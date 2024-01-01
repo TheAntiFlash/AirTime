@@ -1,3 +1,39 @@
 ﻿@page "/"
+@using Microsoft.AspNetCore.Components.Server.ProtectedBrowserStorage
+@using Model.Models
+@inject AuthenticationStateProvider auth
+@inject NavigationManager nm
 
-<LogIn></LogIn>
+
+
+
+@code
+{
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            var authState = await auth.GetAuthenticationStateAsync();
+            if (authState.User.Identity != null)
+            {
+                Console.WriteLine($"Not null authenticated tho? : ${authState.User.Identity.IsAuthenticated}");
+
+                if (authState.User.Identity.IsAuthenticated)
+                {
+                    nm.NavigateTo("/home");
+                }
+                else
+                {
+                    throw new Exception("Not Logged in");
+                }
+            }
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            nm.NavigateTo("/login");
+        }
+
+        await base.OnInitializedAsync();
+    }
+}

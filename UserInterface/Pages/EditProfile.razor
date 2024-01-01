@@ -1,81 +1,133 @@
-﻿<!DOCTYPE html>
+﻿@page "/editprofile"
+@using Model.Models
+@using Model.DTOs
+@using Microsoft.AspNetCore.Components.Server.ProtectedBrowserStorage
+@using Microsoft.AspNetCore.Components
+@using Microsoft.AspNetCore.Components.Server.ProtectedBrowserStorage
+@using Microsoft.AspNetCore.Components
+@using Microsoft.AspNetCore.Components.Server.ProtectedBrowserStorage
+@using Microsoft.AspNetCore.Components
+@using Microsoft.AspNetCore.Components.Server.ProtectedBrowserStorage
+@inject HttpClient http;
+@inject ProtectedSessionStorage Session
+@inject NavigationManager nm
+
+<Navbar/>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     
-    <link rel="stylesheet" href="style.css">
-    <title>Document</title>
+  <link rel="stylesheet" href="style.css">
+  <title>Document</title>
 </head>
 <body>
-    <div class="container">
-        <h1>Edit Profile</h1>
-          <hr>
+<div class="container">
+  <h1>Edit Profile</h1>
+  <hr>
        
           
-          <!-- edit form column -->
-          <div class="col-md-9 personal-info">
+  <!-- edit form column -->
+  <div class="col-md-9 personal-info">
            
-            <h3>Personal info</h3>
+    <h3>Personal info</h3>
             
-            <form class="form-horizontal" role="form">
-              <div class="form-group">
-                <label class="col-lg-3 control-label">First name:</label>
-                <div class="col-lg-8">
-                  <input class="form-control" type="text" value="">
-                </div>
-              </div>
-              <div class="form-group">
-                <label class="col-lg-3 control-label">Last name:</label>
-                <div class="col-lg-8">
-                  <input class="form-control" type="text" value="">
-                </div>
-              </div>
-              <div class="form-group">
-                <label class="col-lg-3 control-label">Description</label>
-                <div class="col-lg-8">
-                  <input class="form-control" type="text" value="Enter your About.....">
-                </div>
-              </div>
-              <div class="form-group">
-                <label class="col-lg-3 control-label">Email:</label>
-                <div class="col-lg-8">
-                  <input class="form-control" type="text" value="janesemail@gmail.com">
-                </div>
-              </div>
-              
-              <div class="form-group">
-                <label class="col-md-3 control-label">Username:</label>
-                <div class="col-md-8">
-                  <input class="form-control" type="text" value="janeuser">
-                </div>
-              </div>
-              <div class="form-group">
-                <label class="col-md-3 control-label">Password:</label>
-                <div class="col-md-8">
-                  <input class="form-control" type="password" value="11111122333">
-                </div>
-              </div>
-              <div class="form-group">
-                <label class="col-md-3 control-label">Confirm password:</label>
-                <div class="col-md-8">
-                  <input class="form-control" type="password" value="11111122333">
-                </div>
-              </div>
-              <div class="form-group">
-                <label class="col-md-3 control-label"></label>
-                <div class="col-md-8">
-                  <input type="button" class="btn btn-primary" value="Save Changes">
-                  <span></span>
-                  <input type="reset" class="btn btn-default" value="Cancel">
-                </div>
-              </div>
-            </form>
-          </div>
+    <form class="form-horizontal" role="form">
+      <div class="form-group">
+        <label class="col-lg-3 control-label">First name:</label>
+        <div class="col-lg-8">
+          <input class="form-control" type="text" value="@userinfo.FirstName">
+        </div>
       </div>
+      <div class="form-group">
+        <label class="col-lg-3 control-label">Last name:</label>
+        <div class="col-lg-8">
+          <input class="form-control" type="text" value="@userinfo.LastName">
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="col-lg-3 control-label">Description</label>
+        <div class="col-lg-8">
+          <input class="form-control" type="text" value="@userinfo.Description">
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="col-lg-3 control-label">Email:</label>
+        <div class="col-lg-8">
+          <input class="form-control" type="text" value="@userinfo.Email">
+        </div>
+      </div>
+              
+      <div class="form-group">
+        <label class="col-md-3 control-label">Mobile:</label>
+        <div class="col-md-8">
+          <input class="form-control" type="text" value="@userinfo.MobileNumber" required="required">
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="col-md-3 control-label">Old Password:</label>
+        <div class="col-md-8">
+          <input class="form-control" type="password" value="@userinfo.OldPassword" required="required">
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="col-md-3 control-label">New password:</label>
+        <div class="col-md-8">
+          <input class="form-control" type="password" value="11111122333" required="required">
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="col-md-3 control-label"></label>
+        <div class="col-md-8">
+          <input type="button" class="btn btn-primary" value="Save Changes">
+          <span></span>
+          <input type="reset" class="btn btn-default" value="Cancel">
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
  
-    <hr>
+<hr>
 </body>
 </html>
+
+@code{
+  private static int userID = -1;
+  private string userName = string.Empty;
+  private EditProfileDto? userinfo = new();
+  
+
+  protected override async Task<Task> OnAfterRenderAsync(bool firstRender)
+  {
+    var userSessionStorageResult = await Session.GetAsync<UserSession>("UserSession");
+    UserSession userSession = new();
+    if (userSessionStorageResult.Success)
+    {
+      userSession = userSessionStorageResult.Value;
+      userID = userSession.UserId;
+      userName = userSession.Username;
+    }
+    else
+    {
+      Console.WriteLine("Session 404!");
+      nm.NavigateTo("/");
+    }
+
+    try
+    {
+     userinfo = await http.GetFromJsonAsync<EditProfileDto>(   $"/api/user/update?userId={userID}");
+    }
+    catch (Exception e)
+    {
+      Console.WriteLine(e);
+      throw;
+    }
+    
+    return base.OnAfterRenderAsync(firstRender);
+  }
+
+}

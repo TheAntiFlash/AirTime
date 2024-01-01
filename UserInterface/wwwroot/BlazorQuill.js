@@ -22,8 +22,7 @@
         },
         getQuillHTML: function (quillControl) {
             return quillControl.__quill.root.innerHTML;
-        }
-        ,
+        },
         loadQuillContent: function (quillControl, quillContent) {
             content = JSON.parse(quillContent);
             return quillControl.__quill.setContents(content, 'api');

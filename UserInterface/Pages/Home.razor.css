@@ -1,10 +1,12 @@
 ﻿body{
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  
 }
 .header-Details{
+    
     width: 100%;
     height: fit-content;
-    position: fixed;
+    position: static;
     top: 10%;
 }
 .tag-line{
@@ -12,9 +14,9 @@
     height: fit-content;
     display: inline;
     position: relative;
+    margin-bottom: 20px;
     left: 30%;       
-    top: 200px;
-    padding: auto;
+    top: 0px;
 }
 
 .card-section{
@@ -22,8 +24,8 @@
     width: fit-content;
     height: fit-content;
     position: relative;
-    left: 30%;
-    top: 200px;
+    margin-right: auto;
+    /*left: 30%;*/
     padding: 10px;
     
 
@@ -37,9 +39,10 @@ a{
    width: 250px;
    height: fit-content;
    background-color: beige;
-   position:fixed;
+   position:static;
+    margin-left: auto;
+    margin-right: 250px;
    top: 30%;
-   left: 50px;
    outline:#0003;
     border: 1px  #0003;
     padding: 20px;
@@ -55,4 +58,13 @@ a{
     font-size: 16px;
     font-weight: 600;
     
+ }
+ .home-body {
+     display: flex;
+     
+     
+ }
+ .space {
+     height: 30px;
+     width: 30px;
  }
