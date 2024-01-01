@@ -102,7 +102,7 @@
         {
             string responseContent = await response.Content.ReadAsStringAsync();
             Console.WriteLine("POST Request was Successful with 200 , RESPONSE: " + responseContent);
-            nm.NavigateTo("/otp");
+            nm.NavigateTo("/login");
         }
         else
         {
