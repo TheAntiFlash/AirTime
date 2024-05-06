@@ -75,7 +75,7 @@
                                     <h5 class="card-title">@(post.Title)</h5>
                                     <p class="card-text">@(post.MetaDescription)</p>
                                     <p class="card-text">
-                                        <small class="text-body-secondary">@(post.PostApprovalTime?.ToString("dd-MMMM"))</small>
+                                        <small class="text-body-secondary">@(GetTimeAgo(post.PostApprovalTime.Value))</small>
                                     </p>
                                 </div> <!-- card-body -->
                             </div> <!-- col-md-8 -->
@@ -127,6 +127,30 @@
 
         StateHasChanged();
         await base.OnInitializedAsync();
+    }
+    
+    static string GetTimeAgo(DateTime dateTime)
+    {
+        TimeSpan timeDifference = DateTime.Now - dateTime;
+
+        if (timeDifference.TotalDays < 1)
+        {
+            return "Today";
+        }
+        else if (timeDifference.TotalDays <= 3)
+        {
+            return $"{(int)timeDifference.TotalDays} days ago";
+        }
+        else if (timeDifference.TotalDays <= 6)
+        {
+            int weeks = (int)(timeDifference.TotalDays / 7);
+            return $"{weeks} week{(weeks != 1 ? "s" : "")} ago";
+        }
+        else
+        {
+            int months = (int)(timeDifference.TotalDays / 30);
+            return $"{months} month{(months != 1 ? "s" : "")} ago";
+        }
     }
 
 }

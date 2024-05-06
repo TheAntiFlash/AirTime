@@ -24,7 +24,7 @@ builder.Services.AddAuthorization(options =>
 });
 builder.Services.AddScoped<HttpClient>(sp => new HttpClient(new AddHeadersDelegatingHandler(config)) 
 {
-    BaseAddress = new Uri("http://localhost:5004/") 
+    BaseAddress = new Uri("https://airtime-backend.azurewebsites.net/") 
 });
 builder.Services.AddScoped<AirtimeAuthenticationProvider>();
 builder.Services.AddScoped<AuthenticationStateProvider, AirtimeAuthenticationProvider>();
