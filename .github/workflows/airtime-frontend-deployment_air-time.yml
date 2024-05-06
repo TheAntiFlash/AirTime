@@ -26,7 +26,7 @@ jobs:
         run: dotnet build --configuration Release ./UserInterface
 
       - name: dotnet publish UserInterface
-        run: dotnet publish -c Release -o ${{env.DOTNET_ROOT}}/myapp/UserInterface ./UserInterface
+        run: dotnet publish -c Release -o ${{env.DOTNET_ROOT}}/myapp ./UserInterface
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v3
